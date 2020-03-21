@@ -3,8 +3,8 @@ Projeto para ajudar as pessoas que necessitam comprar coisas por terceiros por c
 
 ### Cadastro de pessoas
 
-[ ] nome
-[ ] telefone
-[ ] cpf
-[ ] email
-[ ] endereco
+- [ ] nome
+- [ ] telefone
+- [ ] cpf
+- [ ] email
+- [ ] endereco
