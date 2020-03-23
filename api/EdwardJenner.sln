@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdwardJenner.Data", "Infras
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{7FF9FA55-337C-4D94-AE85-1268AD6DDE83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdwardJenner.Tests", "Tests\EdwardJenner.Tests\EdwardJenner.Tests.csproj", "{11B54129-EB00-43F1-B609-5FA23162857F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdwardJenner.Tests", "Tests\EdwardJenner.Tests\EdwardJenner.Tests.csproj", "{11B54129-EB00-43F1-B609-5FA23162857F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdwardJenner.Cross", "Infrastructure\EdwardJenner.Cross\EdwardJenner.Cross.csproj", "{55DA65C1-46DD-48BA-A2E3-803982909E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{11B54129-EB00-43F1-B609-5FA23162857F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11B54129-EB00-43F1-B609-5FA23162857F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11B54129-EB00-43F1-B609-5FA23162857F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DA65C1-46DD-48BA-A2E3-803982909E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DA65C1-46DD-48BA-A2E3-803982909E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DA65C1-46DD-48BA-A2E3-803982909E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DA65C1-46DD-48BA-A2E3-803982909E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{D985E99B-FEB3-43DB-AB31-105A0D4A8C33} = {2B1DCE83-4B8C-4887-9D11-276EE57677B0}
 		{22673329-ADDE-479F-B1AB-547462F0F620} = {C3DDBBC1-4483-430D-A443-A623F76F60E8}
 		{11B54129-EB00-43F1-B609-5FA23162857F} = {7FF9FA55-337C-4D94-AE85-1268AD6DDE83}
+		{55DA65C1-46DD-48BA-A2E3-803982909E83} = {C3DDBBC1-4483-430D-A443-A623F76F60E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0EE6489-5BD7-40DC-98EC-F53CC8791C5A}

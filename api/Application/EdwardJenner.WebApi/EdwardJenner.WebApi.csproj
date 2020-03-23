@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\EdwardJenner.Models\EdwardJenner.Models.csproj" />
     <ProjectReference Include="..\..\Domain\EdwardJenner.Security\EdwardJenner.Security.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\EdwardJenner.Cross\EdwardJenner.Cross.csproj" />
     <ProjectReference Include="..\..\Infrastructure\EdwardJenner.Data\EdwardJenner.Data.csproj" />
   </ItemGroup>
 

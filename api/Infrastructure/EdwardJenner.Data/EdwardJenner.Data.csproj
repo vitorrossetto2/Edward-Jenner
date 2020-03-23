@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\EdwardJenner.Domain\EdwardJenner.Domain.csproj" />
     <ProjectReference Include="..\..\Domain\EdwardJenner.Models\EdwardJenner.Models.csproj" />
+    <ProjectReference Include="..\EdwardJenner.Cross\EdwardJenner.Cross.csproj" />
   </ItemGroup>
 
   <ItemGroup>

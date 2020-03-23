@@ -36,6 +36,17 @@ namespace EdwardJenner.Models.Models
         [BsonElement("password")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "O cpf é obrigatório.")]
+        [RegularExpression("^\\d{11}$", ErrorMessage = "O cpf não é valido.")]
+        [JsonProperty("cpf")]
+        [BsonElement("cpf")]
+        public string Cpf { get; set; }
+
+        [Required(ErrorMessage = "O endereço é obrigatório.")]
+        [JsonProperty("homeAddress")]
+        [BsonElement("homeAddress")]
+        public Address HomeAddress { get; set; }
+
         [Required(ErrorMessage = "A longitude é obrigatória.")]
         [JsonProperty("longitude")]
         [BsonIgnore]
@@ -49,5 +60,63 @@ namespace EdwardJenner.Models.Models
         [JsonIgnore]
         [BsonElement("location")]
         public GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
+
+        [Required(ErrorMessage = "O telefone é obrigatório.")]
+        [JsonProperty("mobilePhone")]
+        [BsonElement("mobilePhone")]
+        public Phone MobilePhone { get; set; }
+    }
+
+    public class Address
+    {
+        [Required(ErrorMessage = "O país é obrigatório.")]
+        [JsonProperty("country")]
+        [BsonElement("country")]
+        public string Country { get; set; }
+
+        [Required(ErrorMessage = "O estado é obrigatório.")]
+        [JsonProperty("state")]
+        [BsonElement("state")]
+        public string State { get; set; }
+
+        [Required(ErrorMessage = "A cidade é obrigatória.")]
+        [JsonProperty("city")]
+        [BsonElement("city")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "O bairro é obrigatório.")]
+        [JsonProperty("neighborhood")]
+        [BsonElement("neighborhood")]
+        public string Neighborhood { get; set; }
+
+        [Required(ErrorMessage = "A rua é obrigatória.")]
+        [JsonProperty("street")]
+        [BsonElement("street")]
+        public string Street { get; set; }
+
+        [JsonProperty("complement")]
+        [BsonElement("complement")]
+        public string Complement { get; set; }
+
+        [JsonProperty("number")]
+        [BsonElement("number")]
+        public string Number { get; set; }
+
+        [JsonIgnore]
+        [BsonElement("location")]
+        public GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
+    }
+
+    public class Phone
+    {
+        [Required(ErrorMessage = "O DDD é obrigatório.")]
+        [JsonProperty("ddd")]
+        [BsonElement("ddd")]
+        public string Ddd { get; set; }
+
+        [Required(ErrorMessage = "O número é obrigatório.")]
+        [JsonProperty("number")]
+        [BsonElement("number")]
+        public string Number { get; set; }
     }
 }

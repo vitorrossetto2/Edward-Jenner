@@ -1,3 +1,5 @@
+using EdwardJenner.Cross;
+using EdwardJenner.Cross.Interfaces;
 using EdwardJenner.Data.Repositories;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
@@ -90,6 +92,10 @@ namespace EdwardJenner.WebApi
                 options.Configuration = $"{redisConnection.ConnectionString}";
                 options.InstanceName = "APISigebol";
             });
+
+            var googleSettings = new GoogleSettings();
+            new ConfigureFromConfigurationOptions<GoogleSettings>(Configuration.GetSection("GoogleSettings")).Configure(googleSettings);
+            services.AddSingleton(googleSettings);
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -99,6 +105,7 @@ namespace EdwardJenner.WebApi
 
             // Domain
             services.AddScoped(typeof(ICacheService<>), typeof(CacheService<>));
+            services.AddScoped<IGoogleMapsApi, GoogleMapsApi>();
 
             // Data
             services.AddScoped<IUserRepository, UserRepository>();
