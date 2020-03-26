@@ -81,10 +81,6 @@ namespace EdwardJenner.Security
 
         public Token GenerateToken(AccessCredentials credentials)
         {
-            Console.WriteLine("_tokenConfigurations init");
-            Console.WriteLine(_tokenConfigurations.Seconds);
-            Console.WriteLine("_tokenConfigurations end");
-
             var identity = new ClaimsIdentity(
                 new GenericIdentity(credentials.UserId, "Login"),
                 new[] {
