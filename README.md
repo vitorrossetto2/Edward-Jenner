@@ -29,9 +29,9 @@ Projeto para ajudar as pessoas que necessitam comprar coisas por terceiros por c
 
 | arquivo | descrição |
 |---|---|
-| [`api`](/api/README.md) | Arquivos de backend da aplicação |
-| [`front`](/front/README.md) | Arquivos de frontend da aplicação - Visual Cliente |
-| [`painel`](/painel/README.md) | Arquivos de frontend da aplicação - Visual Operacional |
+| [`api`](/api) | Arquivos de backend da aplicação |
+| [`front`](/front) | Arquivos de frontend da aplicação - Visual Cliente |
+| [`painel`](/painel) | Arquivos de frontend da aplicação - Visual Operacional |
 
 ## 🛣️ Roadmap do Produto
 
