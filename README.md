@@ -32,6 +32,7 @@ Projeto para ajudar as pessoas que necessitam comprar coisas por terceiros por c
 | [`api`](/api) | Arquivos de backend da aplicação |
 | [`front`](/front) | Arquivos de frontend da aplicação - Visual Cliente |
 | [`painel`](/painel) | Arquivos de frontend da aplicação - Visual Operacional |
+| [`postman`](/postman) | Postman Collection + Environments |
 
 ## 🛣️ Roadmap do Produto
 
