@@ -14,6 +14,7 @@ namespace EdwardJenner.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://*:1337");
                     webBuilder.UseStartup<Startup>();
                 });
     }

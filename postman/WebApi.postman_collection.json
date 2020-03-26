@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "a648f30f-6304-4334-92ca-d30734093f0a",
+		"name": "WebApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Api",
+			"item": [
+				{
+					"name": "ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5c59f9d2-ab92-474f-b50a-ab3b335bbbd4",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/api/ping",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"api",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75445d7b-0106-42fc-940c-0cfec2f8bad8",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"accessToken\", pm.response.json().accessToken);\r",
+									"pm.environment.set(\"refreshToken\", pm.response.json().refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"userId\": \"lennonalvesdias\",\r\n\t\"password\": \"FYUQ9PnWcvRZEoGVaux!\",\r\n\t\"refreshToken\": null,\r\n\t\"grantType\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/api/login",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad0ad7f0-55e7-424d-b869-f71bfbed30b6",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lennon Dias\",\n    \"username\": \"lennonalvesdias\",\n    \"email\": \"lennonalvesdias@gmail.com\",\n    \"password\": \"\",\n    \"cpf\": \"01234567890\",\n    \"homeAddress\": {\n        \"country\": \"BR\",\n        \"state\": \"SP\",\n        \"city\": \"São Paulo\",\n        \"neighborhood\": \"Planalto Paulista\",\n        \"street\": \"Avenida Moema\",\n        \"number\": \"84\"\n    },\n    \"longitude\": -46.6620627,\n    \"latitude\": -23.6036901,\n    \"mobilePhone\": {\n        \"ddd\": \"997210201\",\n        \"number\": \"14\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Lennon Dias\",\r\n        \"username\": \"lennonalvesdias\",\r\n        \"email\": \"lennonalvesdias@gmail.com\",\r\n        \"password\": null,\r\n        \"cpf\": \"01234567890\",\r\n        \"homeAddress\": {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"complement\": null,\r\n            \"number\": \"84\",\r\n            \"location\": {\r\n                \"coordinates\": {\r\n                    \"values\": [\r\n                        -46.65987399999999,\r\n                        -23.603695\r\n                    ],\r\n                    \"longitude\": -46.65987399999999,\r\n                    \"latitude\": -23.603695\r\n                },\r\n                \"type\": 7,\r\n                \"boundingBox\": null,\r\n                \"coordinateReferenceSystem\": null,\r\n                \"extraMembers\": null\r\n            }\r\n        },\r\n        \"longitude\": -46.6620627,\r\n        \"latitude\": -23.6036901,\r\n        \"location\": {\r\n            \"coordinates\": {\r\n                \"values\": [\r\n                    -46.6620627,\r\n                    -23.6036901\r\n                ],\r\n                \"longitude\": -46.6620627,\r\n                \"latitude\": -23.6036901\r\n            },\r\n            \"type\": 7,\r\n            \"boundingBox\": null,\r\n            \"coordinateReferenceSystem\": null,\r\n            \"extraMembers\": null\r\n        },\r\n        \"mobilePhone\": {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\"\r\n        },\r\n        \"id\": \"5e78ce3dfd83689bd48140f6\",\r\n        \"updatedIn\": \"2020-03-23T14:56:21.743Z\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/user",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/53804910-42b9-11e9-a700-af9302a04d31",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"53804910-42b9-11e9-a700-af9302a04d31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "near",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/user/near?longitude=-46.6688605&latitude=-23.6104878&distance=1300",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"user",
+								"near"
+							],
+							"query": [
+								{
+									"key": "longitude",
+									"value": "-46.6688605"
+								},
+								{
+									"key": "latitude",
+									"value": "-23.6104878"
+								},
+								{
+									"key": "distance",
+									"value": "1300"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9a7ecf77-9196-4046-8c66-6cc123cef6da",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({key: 'Authorization', value: 'Bearer ' + pm.environment.get('accessToken')});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ae34cb4f-99d0-4a0e-ba00-a31d276e5a30",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
