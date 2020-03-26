@@ -1,16 +1,16 @@
 <h1 align="center"> Edward Jenner </h1>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/vitorrossetto2/Edward-Jenner.svg">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/lennonalvesdias/Edward-Jenner.svg">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/vitorrossetto2/Edward-Jenner.svg">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lennonalvesdias/Edward-Jenner.svg">
   
-  <a href="https://github.com/vitorrossetto2/Edward-Jenner/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vitorrossetto2/Edward-Jenner.svg">
+  <a href="https://github.com/lennonalvesdias/Edward-Jenner/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lennonalvesdias/Edward-Jenner.svg">
   </a>
 
-  <a href="https://github.com/vitorrossetto2/Edward-Jenner/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/vitorrossetto2/Edward-Jenner.svg">
+  <a href="https://github.com/lennonalvesdias/Edward-Jenner/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/lennonalvesdias/Edward-Jenner.svg">
   </a>
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
@@ -29,9 +29,9 @@ Projeto para ajudar as pessoas que necessitam comprar coisas por terceiros por c
 
 | arquivo | descrição |
 |---|---|
-| [`api`](/api) | Arquivos de backend da aplicação |
-| [`front`](/front) | Arquivos de frontend da aplicação - Visual Cliente |
-| [`painel`](/painel) | Arquivos de frontend da aplicação - Visual Operacional |
+| [`api`](/api/README.md) | Arquivos de backend da aplicação |
+| [`front`](/front/README.md) | Arquivos de frontend da aplicação - Visual Cliente |
+| [`painel`](/painel/README.md) | Arquivos de frontend da aplicação - Visual Operacional |
 
 ## 🛣️ Roadmap do Produto
 
