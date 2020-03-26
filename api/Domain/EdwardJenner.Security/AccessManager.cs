@@ -7,6 +7,7 @@ using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using static System.String;
@@ -22,7 +23,7 @@ namespace EdwardJenner.Security
         private readonly ICacheService<string> _cache;
 
         public AccessManager(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, SigningConfigurations signingConfigurations,
-            TokenConfigurations tokenConfigurations, ICacheService<string> cache)
+            [FromServices]TokenConfigurations tokenConfigurations, ICacheService<string> cache)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -80,6 +81,10 @@ namespace EdwardJenner.Security
 
         public Token GenerateToken(AccessCredentials credentials)
         {
+            Console.WriteLine("_tokenConfigurations init");
+            Console.WriteLine(_tokenConfigurations.Seconds);
+            Console.WriteLine("_tokenConfigurations end");
+
             var identity = new ClaimsIdentity(
                 new GenericIdentity(credentials.UserId, "Login"),
                 new[] {

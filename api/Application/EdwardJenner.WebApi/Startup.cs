@@ -31,10 +31,10 @@ namespace EdwardJenner.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterCors(services);
-            RegisterSecurity(services);
-            RegisterSettings(services);
-            RegisterServices(services);
+            ConfigureCors(services);
+            ConfigureSecurity(services);
+            ConfigureSettings(services);
+            ConfigureInjection(services);
             services.AddControllers();
         }
 
@@ -51,30 +51,20 @@ namespace EdwardJenner.WebApi
 
             app.UseRouting();
 
-            app.UseCors(Configuration.GetSection("CorsSettings:PolicyName").Value);
+            app.UseCors();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        private void RegisterCors(IServiceCollection services)
+        private void ConfigureCors(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(Configuration.GetSection("CorsSettings:PolicyName").Value, builder =>
-                {
-                    builder.WithOrigins(Configuration.GetSection("CorsSettings:Urls").Value.Split(';')).AllowAnyHeader();
-                });
-            });
+            services.AddCors();
         }
 
-        private void RegisterSettings(IServiceCollection services)
+        private void ConfigureSettings(IServiceCollection services)
         {
-            var tokenSettings = new TokenSettings();
-            new ConfigureFromConfigurationOptions<TokenSettings>(Configuration.GetSection("TokenSettings")).Configure(tokenSettings);
-            services.AddSingleton(tokenSettings);
-
             var corsSettings = new CorsSettings();
             new ConfigureFromConfigurationOptions<CorsSettings>(Configuration.GetSection("CorsSettings")).Configure(corsSettings);
             services.AddSingleton(corsSettings);
@@ -87,18 +77,12 @@ namespace EdwardJenner.WebApi
             new ConfigureFromConfigurationOptions<RedisConnection>(Configuration.GetSection("RedisConnection")).Configure(redisConnection);
             services.AddSingleton(redisConnection);
 
-            services.AddDistributedRedisCache(options =>
-            {
-                options.Configuration = $"{redisConnection.ConnectionString}";
-                options.InstanceName = "APISigebol";
-            });
-
             var googleSettings = new GoogleSettings();
             new ConfigureFromConfigurationOptions<GoogleSettings>(Configuration.GetSection("GoogleSettings")).Configure(googleSettings);
             services.AddSingleton(googleSettings);
         }
 
-        private void RegisterServices(IServiceCollection services)
+        private void ConfigureInjection(IServiceCollection services)
         {
             // ASP.NET HttpContext dependency
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -111,7 +95,7 @@ namespace EdwardJenner.WebApi
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
-        private void RegisterSecurity(IServiceCollection services)
+        private void ConfigureSecurity(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("InMemoryDatabase"));
@@ -126,8 +110,7 @@ namespace EdwardJenner.WebApi
             services.AddSingleton(signingConfigurations);
 
             var tokenConfigurations = new TokenConfigurations();
-            new ConfigureFromConfigurationOptions<TokenConfigurations>(Configuration.GetSection("TokenConfigurations"))
-                .Configure(tokenConfigurations);
+            new ConfigureFromConfigurationOptions<TokenConfigurations>(Configuration.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
 
             services.AddJwtSecurity(signingConfigurations, tokenConfigurations);
