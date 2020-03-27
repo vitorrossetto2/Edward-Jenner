@@ -1,0 +1,55 @@
+@import '../../assets/styles/index.scss';
+
+.c__home {
+  width: 100%;
+  min-height: calc(100vh - #{$header-space});
+
+  &__banner {
+    width: 100%;
+    height: calc(100vh - #{$header-space});
+    background: url(../../assets/img/banner.jpg) no-repeat center center;
+    background-size: cover;
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      position: relative;
+
+      @include mq('desktop') {
+        justify-content: flex-end;
+      }
+    }
+
+    &__description {
+      max-width: 300px;
+      text-align: center;
+
+      @include mq('desktop') {
+        max-width: 400px;
+      }
+
+      h1 {
+        font-weight: 100;
+        color: map_get($colors, 'white');
+        margin-bottom: map_get($spaces, 'normal');
+      }
+    }
+
+    @include mq('desktop') {
+      justify-content: flex-end;
+
+      &__description {
+        text-align: right;
+      }
+    }
+  }
+
+  .phone {
+    width: 100%;
+    min-height: 80vh;
+    background: url(../../assets/img/phone.png) no-repeat center center;
+    background-size: contain;
+  }
+}

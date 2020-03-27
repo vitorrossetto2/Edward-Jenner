@@ -1,0 +1,35 @@
+@import '../../assets/styles/index.scss';
+
+.c__button {
+  background: map_get($colors, 'white');
+  border: 1px solid map_get($colors, 'white');
+  padding: map_get($spaces, 'small') map_get($spaces, 'large');
+  margin-right: map_get($spaces, 'small');
+  color: map_get($colors, 'red');
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  &:hover {
+    background: map_get($colors, 'red');
+    border: 1px solid map_get($colors, 'red');
+    color: map_get($colors, 'white');
+  }
+
+  &--secondary {
+    background: transparent;
+    color: map_get($colors, 'white');
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}

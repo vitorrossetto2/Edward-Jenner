@@ -1,0 +1,23 @@
+@import 'src/assets/styles/index';
+@import '../assets/fontello/css/fontello.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+
+  @include mq('desktop') {
+    width: 850px;
+  }
+
+  @include mq('tv') {
+    width: $container-space;
+  }
+}

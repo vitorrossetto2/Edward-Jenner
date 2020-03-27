@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APPNAME="edwardjenner"
-APPTYPE="api"
+APPTYPE="front"
 SERVER="registry.lennon.cloud"
 TIMESTAMP=$(date "+%Y.%m.%d-%H.%M")
 

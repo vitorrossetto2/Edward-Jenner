@@ -1,0 +1,9 @@
+@import '../../assets/styles/index.scss';
+
+.c__content {
+  padding: $header-space 0 0;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: map_get($colors, 'white');
+}

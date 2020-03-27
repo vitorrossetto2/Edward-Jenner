@@ -1,0 +1,25 @@
+$header-space: 50px;
+$container-space: 1200px;
+
+$colors: (
+  'white': #fff,
+  'black': #000,
+  'gray': #eee,
+  'gray-1': #fafafa,
+  'red': #de6262,
+  'orange': #ffb88c,
+) !default;
+
+$spaces: (
+  'small': 8px,
+  'normal': 16px,
+  'large': 24px,
+  'x-large': 32px,
+) !default;
+
+$breakpoints: (
+  'mobile': 481px,
+  'tablet': 769px,
+  'desktop': 1025px,
+  'tv': 1201px,
+) !default;

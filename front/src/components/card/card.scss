@@ -1,0 +1,18 @@
+@import '../../assets/styles/index.scss';
+
+.c__card {
+  width: 100%;
+  position: relative;
+  border: 1px solid map_get($colors, 'gray-1');
+  background: map_get($colors, 'orange');
+
+  &__title {
+    padding: map_get($spaces, 'normal');
+    border-bottom: 1px solid map_get($colors, 'gray-1');
+    margin-bottom: map_get($spaces, 'small');
+  }
+
+  &__body {
+    padding: map_get($spaces, 'normal');
+  }
+}

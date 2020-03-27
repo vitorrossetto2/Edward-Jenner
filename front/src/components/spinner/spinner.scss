@@ -1,0 +1,22 @@
+@import '../../assets/styles/index.scss';
+
+.c__spinner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: map_get($colors, 'orange');
+  display: none;
+  z-index: 101;
+
+  span {
+    font-size: 10px;
+  }
+
+  &--open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

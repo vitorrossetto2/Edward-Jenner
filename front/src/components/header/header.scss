@@ -1,0 +1,138 @@
+@import '../../assets/styles/index.scss';
+
+.c__header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0px 15px rgba(100, 100, 100, 0.2);
+  z-index: 100;
+  background: map_get($colors, 'white');
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logotipo {
+    /*width: 50px;
+    height: 50px;
+    padding: map_get($spaces, 'small');
+    background: url(../../assets/img/logo-min.png) no-repeat center center;
+    background-size: 90%;*/
+    background: url(../../assets/img/logo.png) no-repeat center center;
+    background-size: 90%;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+
+    @include mq('desktop') {
+      background: url(../../assets/img/logo.png) no-repeat center center;
+      background-size: 90%;
+      width: 120px;
+      height: 50px;
+    }
+  }
+
+  &__control__navigation {
+    padding: map_get($spaces, 'normal');
+    display: block;
+
+    button {
+      background: transparent;
+      border: 0px;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
+
+    @include mq('desktop') {
+      display: none;
+    }
+  }
+
+  &__navigation {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    bottom: 0;
+    transition: 0.5s;
+    box-shadow: 0 0px 10px rgba(100, 100, 100, 0.2);
+    background: linear-gradient(to right, map_get($colors, 'orange'), map_get($colors, 'red'));
+
+    ul li a {
+      padding: map_get($spaces, 'normal');
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      color: map_get($colors, 'white');
+      font-size: 100;
+      font-size: 14px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      span i {
+        margin-right: map_get($spaces, 'small');
+        font-size: 16px;
+      }
+    }
+
+    &--open {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: 280px;
+    }
+
+    @include mq('desktop') {
+      position: relative;
+      left: auto;
+      box-shadow: 0 0 0 transparent;
+      background: transparent;
+
+      ul li {
+        display: inline-block;
+      }
+
+      ul li a {
+        border-bottom: 0;
+        color: map_get($colors, 'red');
+      }
+
+      span {
+        display: none;
+      }
+
+      &--open {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        top: auto;
+        max-width: 100%;
+        background: transparent;
+      }
+    }
+
+    &__logotipo {
+      width: 100%;
+      min-height: $header-space;
+      background: url(../../assets/img/logo-white.png) no-repeat center center;
+      margin-bottom: map_get($spaces, 'normal');
+
+      @include mq('desktop') {
+        display: none;
+      }
+    }
+  }
+
+  @include mq('desktop') {
+    justify-content: space-around;
+  }
+}
