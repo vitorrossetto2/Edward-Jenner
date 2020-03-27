@@ -1,4 +1,4 @@
-import { Education, Home, How, Login, Register, What } from '../../pages';
+import { Education, Home, How, Login, Map, Nearby, Register, What } from '../../pages';
 import { resolveUser } from './resolvers';
 
 const routes = [
@@ -35,6 +35,14 @@ const routes = [
     path: 'welcome',
     component: {},
     resolve: resolveUser,
+  },
+  {
+    path: 'nearby',
+    component: new Nearby(),
+  },
+  {
+    path: 'map',
+    component: new Map(),
   },
 ];
 
