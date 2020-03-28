@@ -16,10 +16,6 @@
     flex: 1;
     padding: map_get($spaces, 'normal');
 
-    &__radios {
-      margin-bottom: map_get($spaces, 'medium');
-    }
-
     @include mq('desktop') {
       padding: map_get($spaces, 'large');
       border-right: 1px solid rgba(100, 100, 100, 0.1);
@@ -32,8 +28,8 @@
     padding: map_get($spaces, 'normal');
 
     @include mq('desktop') {
-      padding: map_get($spaces, 'x-large');
-      margin-top: map_get($spaces, 'm-large');
+      padding: map_get($spaces, 'large');
+      margin-top: map_get($spaces, 'x-large');
     }
 
     div {

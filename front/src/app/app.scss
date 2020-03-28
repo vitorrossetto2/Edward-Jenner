@@ -25,3 +25,42 @@
 ::selection {
   background: map_get($colors, 'red');
 }
+
+.c__radio {
+  display: flex;
+  align-items: center;
+  margin-bottom: map_get($spaces, 'normal');
+
+  &__content {
+    @extend %checkRadio;
+
+    &__checkmark {
+      @extend %checkmark;
+    }
+
+    input:checked ~ &__checkmark {
+      border-color: map_get($colors, 'black');
+      color: map_get($colors, 'black');
+
+      &:after {
+        display: block;
+        z-index: 1;
+      }
+
+      &:before {
+        background-color: map_get($colors, 'red');
+        top: 2px;
+        left: 2px;
+      }
+    }
+  }
+
+  label {
+    font-weight: 600;
+    line-height: 1px;
+
+    @include mq('desktop') {
+      font-size: map_get($textSize, 'small');
+    }
+  }
+}

@@ -48,7 +48,7 @@
 
   &__what {
     position: relative;
-    margin: map_get($spaces, 'x-large') 0;
+    margin: map_get($spaces, 'medium') 0;
 
     .container {
       display: flex;
@@ -64,7 +64,7 @@
       flex-direction: column;
       flex: 1;
       justify-content: center;
-      padding: map_get($spaces, 'large');
+      padding: map_get($spaces, 'medium');
 
       h1 {
         margin: map_get($spaces, 'normal') 0;
@@ -87,7 +87,7 @@
   &__who {
     position: relative;
     background: map_get($colors, 'red');
-    padding: map_get($spaces, 'x-large') 0;
+    padding: map_get($spaces, 'medium') 0;
 
     .container {
       display: flex;
@@ -104,7 +104,7 @@
       flex-direction: column;
       flex: 1;
       justify-content: center;
-      padding: map_get($spaces, 'large');
+      padding: map_get($spaces, 'medium');
 
       h1 {
         margin: map_get($spaces, 'normal') 0;

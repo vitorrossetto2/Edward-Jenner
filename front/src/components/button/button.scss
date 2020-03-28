@@ -3,7 +3,7 @@
 .c__button {
   background: map_get($colors, 'white');
   border: 1px solid map_get($colors, 'white');
-  padding: map_get($spaces, 'small') map_get($spaces, 'large');
+  padding: map_get($spaces, 'small') map_get($spaces, 'medium');
   margin-right: map_get($spaces, 'small');
   color: map_get($colors, 'red');
   text-transform: uppercase;

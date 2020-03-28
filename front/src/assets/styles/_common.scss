@@ -1,3 +1,58 @@
-%invisible{
+%invisible {
   display: none;
+}
+
+%checkRadio {
+  display: block;
+  position: relative;
+  height: map_get($spaces, 'medium');
+  width: map_get($spaces, 'medium');
+  min-width: map_get($spaces, 'medium');
+  margin-right: map_get($spaces, 'small');
+  cursor: pointer;
+  z-index: 1;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+%checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: map_get($spaces, 'medium');
+  min-height: map_get($spaces, 'medium');
+  width: map_get($spaces, 'medium');
+  height: map_get($spaces, 'medium');
+  border-radius: 2px;
+  border: 1px solid map_get($colors, 'black');
+
+  &:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    background-color: map_get($colors, 'white');
+    border-radius: 2px;
+    z-index: -1;
+    width: map_get($spaces, 'medium');
+    height: map_get($spaces, 'medium');
+  }
+
+  &:after {
+    content: '';
+    display: none;
+    position: absolute;
+    left: 7px;
+    top: 1px;
+    width: map_get($spaces, 'small');
+    height: 12px;
+    border: 1px solid map_get($colors, 'white');
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
 }

@@ -13,20 +13,33 @@ export default class Input extends Component {
     super(new TInput(options));
     privateProperties.set(this, {
       _defaultSelector: 'c__input',
+      _callback: options.callback || false,
+    });
+  }
+
+  handleEvent() {
+    const { _callback } = privateProperties.get(this);
+    const { input } = this;
+    if (!_callback) return;
+
+    input.addEventListener('blur', (evt) => {
+      _callback(evt);
     });
   }
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
-    const { label, pattern, type, required } = this.state;
+    const { label, name, pattern, type, required } = this.state;
 
     this.el = this.template(
       'div',
       {
         class: _defaultSelector,
       },
-      template.input(_defaultSelector, label, pattern, type, required)
+      template.input(_defaultSelector, label, name, pattern, type, required)
     );
+    this.input = this.el.querySelector('input');
+    this.handleEvent();
     return this.el;
   }
 }

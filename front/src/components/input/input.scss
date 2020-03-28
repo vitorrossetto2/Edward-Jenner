@@ -6,22 +6,25 @@
   margin: map_get($spaces, 'normal') 0;
 
   &__field {
+    position: relative;
     width: 100%;
-    height: map_get($spaces, 'm-large');
-    background: map_get($colors, 'white');
+    z-index: 1;
+    height: map_get($spaces, 'x-large');
+    background: transparent;
     box-shadow: 0 0 0 transparent;
     border: 0px;
     border-bottom: 1px solid map_get($colors, 'black');
     padding: 0 map_get($spaces, 'small');
+    font-weight: 600;
 
     &:focus,
     &:active {
       outline: none;
     }
 
-    &:invalid {
+    /*&:invalid {
       border-bottom: 2px solid map_get($colors, 'red');
-    }
+    }*/
   }
 
   &__label {

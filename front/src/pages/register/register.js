@@ -1,6 +1,7 @@
 import './register.scss';
-import { Button, Input } from '../../components';
 import { Component } from '../../@core';
+import { TUser } from '../../models';
+
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -13,31 +14,36 @@ export default class Register extends Component {
     super();
     privateProperties.set(this, {
       _defaultSelector: 'c__register',
+      _model: new TUser(),
+    });
+  }
+
+  getChilds() {
+    const { _model } = privateProperties.get(this);
+    const { el } = this;
+
+    this.button = el.querySelector('button');
+    this.button.addEventListener('click', () => {
+      console.log(_model); // eslint-disable-line
+    });
+
+    Array.from(el.querySelectorAll('input'))?.forEach((element) => {
+      element.addEventListener('change', (evt) => {
+        const property = evt.target.name;
+        _model[property] = evt.target.value;
+
+        if (_model.name && _model.email && _model.password) this.button.removeAttribute('disabled');
+        else this.button.setAttribute('disabled', true);
+      });
     });
   }
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 
-    const btnRegister = new Button({ label: 'Cadastrar', cssClass: '--reverse' });
-    const inputName = new Input({ label: 'Nome' });
-    const inputEmail = new Input({ label: 'Email' });
-    const inputEmailConfirmation = new Input({ label: 'Confirmar e-mail' });
-    const inputPassword = new Input({ label: 'Senha', type: 'password' });
-    const inputPasswordConfirmation = new Input({ label: 'Confirmar senha', type: 'password' });
-    this.el = this.template(
-      'div',
-      { class: _defaultSelector },
-      template.register(
-        _defaultSelector,
-        inputName.render(),
-        inputEmail.render(),
-        inputEmailConfirmation.render(),
-        inputPassword.render(),
-        inputPasswordConfirmation.render(),
-        btnRegister.render()
-      )
-    );
+    this.el = this.template('div', { class: _defaultSelector }, template.register(_defaultSelector));
+
+    this.getChilds();
     return this.el;
   }
 }

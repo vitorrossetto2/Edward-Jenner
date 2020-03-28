@@ -5,6 +5,7 @@ export default class TInput {
     this.pattern = options.pattern || '';
     this.label = options.label || 'Label';
     this.value = options.value || '';
+    this.name = options.name || 'defaultInput';
     this.disabled = options.disabled || false;
   }
 }

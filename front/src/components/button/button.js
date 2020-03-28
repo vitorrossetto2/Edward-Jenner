@@ -12,6 +12,7 @@ export default class Button extends Component {
     super(new TButton(options));
     privateProperties.set(this, {
       _defaultSelector: 'c__button',
+      _callback: options.callback,
     });
   }
 
@@ -25,15 +26,26 @@ export default class Button extends Component {
     this.el.innerText = val;
   }
 
+  setCallback() {
+    const { el } = this;
+    const { _callback } = privateProperties.get(this);
+
+    el.onclick = (evt) => {
+      evt.preventDefault();
+      _callback(evt.target);
+    };
+  }
+
   render() {
     const { _defaultSelector } = privateProperties.get(this);
-    const { label, cssClass, disabled } = this.state;
+    const { label, type, cssClass, disabled } = this.state;
     const otherClass = cssClass ? `${_defaultSelector}${cssClass}` : '';
     this.el = this.template(
       'button',
       {
         class: `${_defaultSelector} ${otherClass}`,
         'data-label': label,
+        type,
       },
       label
     );
@@ -41,7 +53,8 @@ export default class Button extends Component {
     if (disabled) {
       this.el.setAttribute('disabled', true);
     }
-    window[`button${label}`] = this;
+
+    this.setCallback();
     return this.el;
   }
 }
