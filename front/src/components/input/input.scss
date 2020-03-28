@@ -1,0 +1,36 @@
+@import '../../assets/styles/index.scss';
+
+.c__input {
+  position: relative;
+  width: 100%;
+  margin: map_get($spaces, 'normal') 0;
+
+  &__field {
+    width: 100%;
+    height: map_get($spaces, 'm-large');
+    background: map_get($colors, 'white');
+    box-shadow: 0 0 0 transparent;
+    border: 0px;
+    border-bottom: 1px solid map_get($colors, 'black');
+    padding: 0 map_get($spaces, 'small');
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: map_get($spaces, 'normal');
+    left: 0;
+    font-weight: 500;
+    transition: 0.5s;
+  }
+
+  &__field:focus + &__label,
+  &__field:valid + &__label {
+    top: -10px;
+    font-size: map_get($textSize, 'small');
+  }
+}

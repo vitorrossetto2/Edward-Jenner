@@ -1,1 +1,40 @@
 @import '../../assets/styles/index.scss';
+
+.c__register {
+  width: 100%;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    @include mq('desktop') {
+      flex-direction: row;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: map_get($spaces, 'normal');
+
+    @include mq('desktop') {
+      padding: map_get($spaces, 'x-large');
+      border-right: 1px solid rgba(100, 100, 100, 0.1);
+      margin-top: map_get($spaces, 'm-large');
+    }
+  }
+
+  &__socials {
+    flex: 1;
+    padding: map_get($spaces, 'normal');
+
+    @include mq('desktop') {
+      padding: map_get($spaces, 'x-large');
+      margin-top: map_get($spaces, 'm-large');
+    }
+
+    div {
+      position: relative;
+      height: 400px;
+    }
+  }
+}

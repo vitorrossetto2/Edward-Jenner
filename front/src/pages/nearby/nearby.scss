@@ -1,54 +1,50 @@
 @import '../../assets/styles/index.scss';
 
+/* TODO - aplicar variáveis*/
+
 .c__nearby {
-    width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
 
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    color: #fff;
+  text-align: center;
 
-    &__overlay {
-        background-color: #c14d2b;
+  color: #fff;
+
+  &__overlay {
+    background-color: #c14d2b;
+  }
+
+  &__header {
+    color: #000;
+    &__name {
+      font-size: 32px;
     }
-    
-    &__header {
-        color: #000;
-        &__name {
-            font-size: 32px;
-        }
-        &__distance {
-            font-size: 18px;
-        }
-        margin: 10px 0 10px 0;
+    &__distance {
+      font-size: 18px;
     }
+    margin: 10px 0 10px 0;
+  }
 
-    &__description {
-        margin: 0 10px 0 10px;
-        p {
-            margin: 10px 0 10px 0;
-            text-align: left;
-        }
-        &__image {
-            img {
-                border-radius: 50%;
-                width: 100px;
-                height: 100px;
-            }
-        }
+  &__description {
+    margin: 0 10px 0 10px;
+    p {
+      margin: 10px 0 10px 0;
+      text-align: left;
     }
-
-    &__request {
-        margin: 10px 10px 10px 10px;
-        text-align: left;
+    &__image {
+      img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
     }
-}
+  }
 
-.c__button {
+  &__request {
     margin: 10px 10px 10px 10px;
-    color: #fff;
-    background-color: #325f71;
+    text-align: left;
+  }
 }

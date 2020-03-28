@@ -1,6 +1,7 @@
 import './map.scss';
 import { Button } from '../../components';
 import { Component } from '../../@core';
+import { TButton } from '../../models';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -19,7 +20,7 @@ export default class Map extends Component {
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 
-    const btnReadRequest = new Button({ label: 'Ver Pedido' });
+    const btnReadRequest = new Button(new TButton({ label: 'Ver Pedido' }));
 
     const nearbyMock = {
       client: {

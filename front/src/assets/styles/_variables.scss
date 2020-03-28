@@ -1,6 +1,13 @@
 $header-space: 50px;
 $container-space: 1200px;
 
+$textSize: (
+  'small': 12px,
+  'normal': 16px,
+  'large': 24px,
+  'x-large': 32px,
+) !default;
+
 $colors: (
   'white': #fff,
   'black': #000,
@@ -15,6 +22,7 @@ $spaces: (
   'normal': 16px,
   'large': 24px,
   'x-large': 32px,
+  'm-large': 40px,
 ) !default;
 
 $breakpoints: (

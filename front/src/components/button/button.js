@@ -28,10 +28,11 @@ export default class Button extends Component {
   render() {
     const { _defaultSelector } = privateProperties.get(this);
     const { label, cssClass, disabled } = this.state;
+    const otherClass = cssClass ? `${_defaultSelector}${cssClass}` : '';
     this.el = this.template(
       'button',
       {
-        class: `${_defaultSelector} ${_defaultSelector}${cssClass}`,
+        class: `${_defaultSelector} ${otherClass}`,
         'data-label': label,
       },
       label

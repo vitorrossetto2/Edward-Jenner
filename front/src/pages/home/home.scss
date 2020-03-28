@@ -46,10 +46,81 @@
     }
   }
 
-  .phone {
-    width: 100%;
-    min-height: 80vh;
-    background: url(../../assets/img/phone.png) no-repeat center center;
-    background-size: contain;
+  &__what {
+    position: relative;
+    margin: map_get($spaces, 'x-large') 0;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+
+      @include mq('tablet') {
+        flex-direction: row;
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      padding: map_get($spaces, 'large');
+
+      h1 {
+        margin: map_get($spaces, 'normal') 0;
+      }
+
+      p {
+        font-size: map_get($textSize, 'normal');
+      }
+    }
+
+    &__phone {
+      flex: 1;
+      width: 100%;
+      min-height: 80vh;
+      background: url(../../assets/img/phone.png) no-repeat center center;
+      background-size: contain;
+    }
+  }
+
+  &__who {
+    position: relative;
+    background: map_get($colors, 'red');
+    padding: map_get($spaces, 'x-large') 0;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+
+      @include mq('tablet') {
+        flex-direction: row;
+      }
+    }
+
+    &__text {
+      color: map_get($colors, 'white');
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      padding: map_get($spaces, 'large');
+
+      h1 {
+        margin: map_get($spaces, 'normal') 0;
+      }
+
+      p {
+        font-size: map_get($textSize, 'normal');
+      }
+    }
+
+    &__phone {
+      flex: 1;
+      width: 100%;
+      min-height: 80vh;
+      background: url(../../assets/img/phone.png) no-repeat center center;
+      background-size: contain;
+    }
   }
 }

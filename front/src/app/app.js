@@ -32,7 +32,7 @@ export default class App {
     const spinner = new Spinner();
     this.el.appendChild(spinner.render());
     spinner.show(true);
-    setDelay(3000).then(() => {
+    setDelay(1000).then(() => {
       spinner.show(false);
     });
     window.spinner = spinner;

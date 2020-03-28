@@ -28,6 +28,11 @@
     color: map_get($colors, 'white');
   }
 
+  &--reverse {
+    background: map_get($colors, 'red');
+    color: map_get($colors, 'white');
+  }
+
   &:disabled {
     pointer-events: none;
     opacity: 0.4;
