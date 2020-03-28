@@ -18,6 +18,10 @@
     &:active {
       outline: none;
     }
+
+    &:invalid {
+      border-bottom: 2px solid map_get($colors, 'red');
+    }
   }
 
   &__label {
