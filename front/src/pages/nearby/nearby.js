@@ -27,10 +27,23 @@ export default class Nearby extends Component {
         distance: 2,
         image: 'https://imagens.publico.pt/imagens.aspx/1406209?tp=UH&db=IMAGENS&type=JPG',
         description:
-          'Eu sou um senhor amável e possuo uma senhora maravilhosa, gostaria de uma alma querida para ir ao mercado para mim, pois estou no grupo de risco.',
-      },
+          'bla bla bla',
+        },
       request: {
-        items: ['Item A', 'Item B', 'Item C', 'Item D', 'Item E', 'Item F', 'Item G', 'Item H'],
+        items: [
+          {
+            id: 1,
+            nome: 'Item x',
+            quantidade: 12,
+            precoMaximo: 30.50
+          },
+          {
+            id: 2,
+            nome: 'Item x',
+            quantidade: 12,
+            precoMaximo: 30.50
+          }
+        ],
       },
     };
 
