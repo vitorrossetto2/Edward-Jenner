@@ -73,7 +73,7 @@ namespace EdwardJenner.Models.Models
         public string About { get; set; }
 
         [JsonProperty("ratings")]
-        [BsonElement("ratings")]
+        [BsonIgnore]
         public IList<Rating> Ratings { get; set; }
 
         [JsonProperty("hiddenOrders")]
@@ -190,15 +190,5 @@ namespace EdwardJenner.Models.Models
         [Description("Celular")]
         [JsonProperty("mobile")]
         Mobile = 1
-    }
-
-    public class Rating
-    {
-        [JsonProperty("rate")]
-        [BsonElement("rate")]
-        public int Rate { get; set; }
-        [JsonProperty("description")]
-        [BsonElement("description")]
-        public string Description { get; set; }
     }
 }
