@@ -15,11 +15,13 @@
     border: 0px;
     border-bottom: 1px solid map_get($colors, 'black');
     padding: 0 map_get($spaces, 'small');
-    font-weight: 600;
+    font-weight: 600;asdasd-s-;
+    border-radius: 0px;
 
     &:focus,
     &:active {
       outline: none;
+      box-shadow: 0 0 0 transparent;
     }
 
     /*&:invalid {

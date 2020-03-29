@@ -26,7 +26,9 @@
   background: map_get($colors, 'red');
 }
 
-.c__radio {
+// TODO - Components
+.c__radio,
+.c__checkbox {
   display: flex;
   align-items: center;
   margin-bottom: map_get($spaces, 'normal');

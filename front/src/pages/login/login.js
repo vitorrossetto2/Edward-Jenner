@@ -24,7 +24,7 @@ export default class Login extends Component {
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 
-    this.el = this.template('div', { class: _defaultSelector }, template.login());
+    this.el = this.template('div', { class: _defaultSelector }, template.login(_defaultSelector));
     return this.el;
   }
 }
