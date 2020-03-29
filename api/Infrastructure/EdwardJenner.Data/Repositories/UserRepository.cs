@@ -34,8 +34,17 @@ namespace EdwardJenner.Data.Repositories
             _googleMapsApi = googleMapsApi;
             _cacheGoogleGeocodeService = cacheGoogleGeocodeService;
             _userManager = userManager;
+            CreateIndexes();
+        }
+
+        private void CreateIndexes()
+        {
             var keys = Builders<User>.IndexKeys.Geo2DSphere(x => x.Location);
             var model = new CreateIndexModel<User>(keys);
+            BaseCollection.Indexes.CreateOne(model);
+
+            keys = Builders<User>.IndexKeys.Text(x => x.Username);
+            model = new CreateIndexModel<User>(keys);
             BaseCollection.Indexes.CreateOne(model);
         }
 
@@ -56,8 +65,6 @@ namespace EdwardJenner.Data.Repositories
         public new async Task<User> FindBy(Expression<Func<User, bool>> filter)
         {
             var user = await BaseCollection.Find(filter).FirstOrDefaultAsync();
-            user.Longitude = user.Location.Coordinates.Longitude;
-            user.Latitude = user.Location.Coordinates.Latitude;
             user.Password = null;
             return user;
         }
@@ -67,8 +74,6 @@ namespace EdwardJenner.Data.Repositories
             var users = await BaseCollection.Find(filter).ToListAsync();
             foreach (var user in users)
             {
-                user.Longitude = user.Location.Coordinates.Longitude;
-                user.Latitude = user.Location.Coordinates.Latitude;
                 user.Password = null;
             }
             return users;

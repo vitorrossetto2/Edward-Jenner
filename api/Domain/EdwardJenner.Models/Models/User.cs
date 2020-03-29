@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.GeoJsonObjectModel;
 using Newtonsoft.Json;
@@ -36,39 +39,56 @@ namespace EdwardJenner.Models.Models
         [BsonIgnore]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "O cpf é obrigatório.")]
-        [RegularExpression("^\\d{11}$", ErrorMessage = "O cpf não é valido.")]
+        [JsonProperty("avatar")]
+        [BsonElement("avatar")]
+        public string Avatar { get; set; }
+
         [JsonProperty("cpf")]
         [BsonElement("cpf")]
         public string Cpf { get; set; }
 
-        [Required(ErrorMessage = "O endereço é obrigatório.")]
-        [JsonProperty("homeAddress")]
-        [BsonElement("homeAddress")]
-        public Address HomeAddress { get; set; }
+        [JsonProperty("adresses")]
+        [BsonElement("adresses")]
+        public IList<Address> Adresses { get; set; }
 
-        [Required(ErrorMessage = "A longitude é obrigatória.")]
-        [JsonProperty("longitude")]
-        [BsonIgnore]
-        public double Longitude { get; set; }
-
-        [Required(ErrorMessage = "A latitude é obrigatória.")]
-        [JsonProperty("latitude")]
-        [BsonIgnore]
-        public double Latitude { get; set; }
-
-        [JsonIgnore]
-        [BsonElement("location")]
-        public GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
-
-        [Required(ErrorMessage = "O telefone é obrigatório.")]
-        [JsonProperty("mobilePhone")]
-        [BsonElement("mobilePhone")]
-        public Phone MobilePhone { get; set; }
+        [JsonProperty("phones")]
+        [BsonElement("phones")]
+        public IList<Phone> Phones { get; set; }
 
         [JsonProperty("applicationUserId")]
         [BsonElement("applicationUserId")]
         public string ApplicationUserId { get; set; }
+
+        [JsonProperty("type")]
+        [BsonElement("type")]
+        public UserType Type { get; set; }
+
+        [JsonProperty("birthday")]
+        [BsonElement("birthday")]
+        public DateTime Birthday { get; set; }
+
+        [JsonProperty("about")]
+        [BsonElement("about")]
+        public string About { get; set; }
+
+        [JsonProperty("ratings")]
+        [BsonElement("ratings")]
+        public IList<Rating> Ratings { get; set; }
+    }
+
+    public enum UserType
+    {
+        [Description("Cliente")]
+        [JsonProperty("customer")]
+        Customer = 0,
+
+        [Description("Ajudante")]
+        [JsonProperty("helper")]
+        Helper = 1,
+
+        [Description("Vendedor")]
+        [JsonProperty("seller")]
+        Seller = 2
     }
 
     public class Address
@@ -106,9 +126,36 @@ namespace EdwardJenner.Models.Models
         [BsonElement("number")]
         public string Number { get; set; }
 
+        [JsonProperty("longitude")]
+        [BsonIgnore]
+        public double Longitude { get; set; }
+
+        [JsonProperty("latitude")]
+        [BsonIgnore]
+        public double Latitude { get; set; }
+
         [JsonIgnore]
         [BsonElement("location")]
         public GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
+
+        [JsonProperty("type")]
+        [BsonElement("type")]
+        public AddressType Type { get; set; }
+    }
+
+    public enum AddressType
+    {
+        [Description("Casa")]
+        [JsonProperty("home")]
+        Home = 0,
+
+        [Description("Trabalho")]
+        [JsonProperty("work")]
+        Work = 1,
+
+        [Description("Outro")]
+        [JsonProperty("other")]
+        Other = 2
     }
 
     public class Phone
@@ -122,5 +169,30 @@ namespace EdwardJenner.Models.Models
         [JsonProperty("number")]
         [BsonElement("number")]
         public string Number { get; set; }
+
+        [JsonProperty("type")]
+        [BsonElement("type")]
+        public PhoneType Type { get; set; }
+    }
+
+    public enum PhoneType
+    {
+        [Description("Casa")]
+        [JsonProperty("home")]
+        Home = 0,
+
+        [Description("Celular")]
+        [JsonProperty("mobile")]
+        Mobile = 1
+    }
+
+    public class Rating
+    {
+        [JsonProperty("rate")]
+        [BsonElement("rate")]
+        public int Rate { get; set; }
+        [JsonProperty("description")]
+        [BsonElement("description")]
+        public string Description { get; set; }
     }
 }
