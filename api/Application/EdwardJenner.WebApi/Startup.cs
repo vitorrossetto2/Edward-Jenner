@@ -1,14 +1,18 @@
+using System.IO;
+using System.Net;
 using EdwardJenner.Cross;
 using EdwardJenner.Cross.Interfaces;
 using EdwardJenner.Data.Repositories;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Domain.Services;
+using EdwardJenner.Models.DTO;
 using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Models.Settings;
 using EdwardJenner.Security;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -35,7 +39,13 @@ namespace EdwardJenner.WebApi
             ConfigureSecurity(services);
             ConfigureSettings(services);
             ConfigureInjection(services);
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    var serializerOptions = options.JsonSerializerOptions;
+                    serializerOptions.IgnoreNullValues = true;
+                    serializerOptions.IgnoreReadOnlyProperties = true;
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -44,6 +54,28 @@ namespace EdwardJenner.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseExceptionHandler(appError =>
+            //{
+            //    appError.Run(async context =>
+            //    {
+            //        context.Response.ContentType = "application/json";
+
+            //        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+            //        if (contextFeature != null)
+            //        {
+            //            var errorDetails = new ErrorDetails
+            //            {
+            //                Message = contextFeature.Error.Message,
+            //                ExceptionMessage = contextFeature.Error.InnerException?.Message,
+            //                ExceptionType = null,
+            //                StackTrace = contextFeature.Error.StackTrace
+            //            };
+
+            //            await context.Response.WriteAsync(errorDetails.ToString());
+            //        }
+            //    });
+            //});
 
             new IdentityInitializer(context, userManager, roleManager).Initialize();
 

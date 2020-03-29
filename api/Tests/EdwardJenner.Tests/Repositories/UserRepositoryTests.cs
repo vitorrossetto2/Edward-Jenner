@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EdwardJenner.Cross;
 using EdwardJenner.Cross.Models;
@@ -14,6 +15,16 @@ namespace EdwardJenner.Tests.Repositories
     public class UserRepositoryTests
     {
         private static UserRepository _userRepository;
+
+        private List<ApplicationUser> _users = new List<ApplicationUser>
+        {
+            new ApplicationUser()
+            {
+                UserName = "user",
+                Email = "user",
+                EmailConfirmed = true
+            }
+        };
 
         public UserRepositoryTests()
         {
@@ -39,7 +50,10 @@ namespace EdwardJenner.Tests.Repositories
 
             var cacheGoogleGeocodeService = new CacheService<GoogleGeocodeResult>(redisConnection);
 
-            _userRepository = new UserRepository(connection, googleMapsApi, cacheGoogleGeocodeService);
+
+            var userManagerMock = MockUtils.MockUserManager<ApplicationUser>(_users);
+
+            _userRepository = new UserRepository(connection, googleMapsApi, cacheGoogleGeocodeService, userManagerMock.Object);
         }
 
         [TestMethod]

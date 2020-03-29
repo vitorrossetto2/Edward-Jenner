@@ -5,10 +5,14 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EdwardJenner.Cross.Interfaces;
 using EdwardJenner.Cross.Models;
+using EdwardJenner.Domain.Exceptions;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Models.Models;
+using EdwardJenner.Models.Security;
 using EdwardJenner.Models.Settings;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
 
@@ -18,16 +22,18 @@ namespace EdwardJenner.Data.Repositories
     {
         private readonly IGoogleMapsApi _googleMapsApi;
         private readonly ICacheService<GoogleGeocodeResult> _cacheGoogleGeocodeService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         protected override string GetCollectionName()
         {
             return "users";
         }
 
-        public UserRepository(MongoConnection mongoConnection, IGoogleMapsApi googleMapsApi, ICacheService<GoogleGeocodeResult> cacheGoogleGeocodeService) : base(mongoConnection)
+        public UserRepository(MongoConnection mongoConnection, IGoogleMapsApi googleMapsApi, ICacheService<GoogleGeocodeResult> cacheGoogleGeocodeService, UserManager<ApplicationUser> userManager) : base(mongoConnection)
         {
             _googleMapsApi = googleMapsApi;
             _cacheGoogleGeocodeService = cacheGoogleGeocodeService;
+            _userManager = userManager;
             var keys = Builders<User>.IndexKeys.Geo2DSphere(x => x.Location);
             var model = new CreateIndexModel<User>(keys);
             BaseCollection.Indexes.CreateOne(model);
@@ -70,6 +76,14 @@ namespace EdwardJenner.Data.Repositories
 
         public new async Task Insert(User user)
         {
+            var applicationUser = CreateApplicationUser(new ApplicationUser
+            {
+                UserName = user.Username,
+                Email = user.Email,
+                EmailConfirmed = true
+            }, user.Password, Roles.RoleApiEdwardJenner);
+
+            user.ApplicationUserId = applicationUser.Id;
             user.UpdatedIn = DateTime.Now;
             user.HomeAddress.Location = await GetGeopointsByAddress(user.HomeAddress);
             user.Location = new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
@@ -79,12 +93,37 @@ namespace EdwardJenner.Data.Repositories
 
         public new async Task<User> Update(User user)
         {
+            await _userManager.UpdateAsync(new ApplicationUser
+            {
+                Id = user.ApplicationUserId,
+                Email = user.Email,
+                EmailConfirmed = true
+            });
+
             user.UpdatedIn = DateTime.Now;
             user.HomeAddress.Location = await GetGeopointsByAddress(user.HomeAddress);
             user.Location =
                 new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
                     new GeoJson2DGeographicCoordinates(user.Longitude, user.Latitude));
             return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == user.Id, user);
+        }
+
+        private ApplicationUser CreateApplicationUser(ApplicationUser user, string password, string initialRole = null)
+        {
+            if (_userManager.FindByNameAsync(user.UserName).Result != null) throw new BadRequestException("Já existe um usuário com esse username.");
+
+            var result = _userManager.CreateAsync(user, password).Result;
+
+            if (result.Succeeded && !string.IsNullOrWhiteSpace(initialRole))
+            {
+                _userManager.AddToRoleAsync(user, initialRole).Wait();
+            }
+            else
+            {
+                throw new Exception(result.ToString());
+            }
+
+            return user;
         }
 
         private async Task<GeoJsonPoint<GeoJson2DGeographicCoordinates>> GetGeopointsByAddress(Address address)

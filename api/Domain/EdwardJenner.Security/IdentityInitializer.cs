@@ -35,8 +35,8 @@ namespace EdwardJenner.Security
 
             CreateUser(new ApplicationUser()
             {
-                UserName = "lennonalvesdias",
-                Email = "lennonalvesdias@gmail.com",
+                UserName = "edwardjenner",
+                Email = "edwardjenner",
                 EmailConfirmed = true
             }, "FYUQ9PnWcvRZEoGVaux!", Roles.RoleApiEdwardJenner);
         }

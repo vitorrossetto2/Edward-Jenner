@@ -33,7 +33,7 @@ namespace EdwardJenner.Models.Models
         [MaxLength(50, ErrorMessage = "A senha deve conter no máximo 50 letras.")]
         [Required(ErrorMessage = "A senha é obrigatória.")]
         [JsonProperty("password")]
-        [BsonElement("password")]
+        [BsonIgnore]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "O cpf é obrigatório.")]
@@ -65,6 +65,10 @@ namespace EdwardJenner.Models.Models
         [JsonProperty("mobilePhone")]
         [BsonElement("mobilePhone")]
         public Phone MobilePhone { get; set; }
+
+        [JsonProperty("applicationUserId")]
+        [BsonElement("applicationUserId")]
+        public string ApplicationUserId { get; set; }
     }
 
     public class Address
