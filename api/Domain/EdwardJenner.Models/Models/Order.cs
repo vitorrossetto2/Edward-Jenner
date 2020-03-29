@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
+using MongoDB.Driver.GeoJsonObjectModel;
 using Newtonsoft.Json;
 
 namespace EdwardJenner.Models.Models
@@ -34,6 +35,18 @@ namespace EdwardJenner.Models.Models
         [JsonProperty("lastStatus")]
         [BsonElement("lastStatus")]
         public OrderStatus LastStatus { get; set; }
+
+        [JsonProperty("longitude")]
+        [BsonIgnore]
+        public double Longitude { get; set; }
+
+        [JsonProperty("latitude")]
+        [BsonIgnore]
+        public double Latitude { get; set; }
+
+        [JsonIgnore]
+        [BsonElement("location")]
+        public GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
     }
 
     public enum OrderType

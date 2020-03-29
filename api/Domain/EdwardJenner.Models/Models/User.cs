@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.GeoJsonObjectModel;
 using Newtonsoft.Json;
@@ -74,6 +75,11 @@ namespace EdwardJenner.Models.Models
         [JsonProperty("ratings")]
         [BsonElement("ratings")]
         public IList<Rating> Ratings { get; set; }
+
+        [JsonProperty("hiddenOrders")]
+        [BsonElement("hiddenOrders")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public IList<string> HiddenOrders { get; set; }
     }
 
     public enum UserType
