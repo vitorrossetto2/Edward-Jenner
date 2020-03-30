@@ -24,10 +24,7 @@ namespace EdwardJenner.Data.Repositories
         private readonly ICacheService<GoogleGeocodeResult> _cacheGoogleGeocodeService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        protected override string GetCollectionName()
-        {
-            return "users";
-        }
+        protected override string GetCollectionName() => "users";
 
         public UserRepository(MongoConnection mongoConnection, IGoogleMapsApi googleMapsApi, ICacheService<GoogleGeocodeResult> cacheGoogleGeocodeService, UserManager<ApplicationUser> userManager) : base(mongoConnection)
         {
@@ -39,27 +36,9 @@ namespace EdwardJenner.Data.Repositories
 
         private void CreateIndexes()
         {
-            var keys = Builders<User>.IndexKeys.Geo2DSphere(x => x.Location);
+            var keys = Builders<User>.IndexKeys.Text(x => x.Username);
             var model = new CreateIndexModel<User>(keys);
             BaseCollection.Indexes.CreateOne(model);
-
-            keys = Builders<User>.IndexKeys.Text(x => x.Username);
-            model = new CreateIndexModel<User>(keys);
-            BaseCollection.Indexes.CreateOne(model);
-        }
-
-        public async Task<IList<User>> ListByNearAsync(double longitude, double latitude, int distance)
-        {
-            var point = GeoJson.Point(GeoJson.Geographic(longitude, latitude));
-            var filter = Builders<User>.Filter.Near(x => x.Location, point, distance);
-            var users = await BaseCollection.Find(filter).ToListAsync();
-            foreach (var user in users)
-            {
-                user.Longitude = user.Location.Coordinates.Longitude;
-                user.Latitude = user.Location.Coordinates.Latitude;
-                user.Password = null;
-            }
-            return users;
         }
 
         public new async Task<User> FindBy(Expression<Func<User, bool>> filter)
@@ -79,38 +58,43 @@ namespace EdwardJenner.Data.Repositories
             return users;
         }
 
-        public new async Task Insert(User user)
+        public new async Task Insert(User order)
         {
             var applicationUser = CreateApplicationUser(new ApplicationUser
             {
-                UserName = user.Username,
-                Email = user.Email,
+                UserName = order.Username,
+                Email = order.Email,
                 EmailConfirmed = true
-            }, user.Password, Roles.RoleApiEdwardJenner);
+            }, order.Password, Roles.RoleApiEdwardJenner);
 
-            user.ApplicationUserId = applicationUser.Id;
-            user.UpdatedIn = DateTime.Now;
-            user.HomeAddress.Location = await GetGeopointsByAddress(user.HomeAddress);
-            user.Location = new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
-                new GeoJson2DGeographicCoordinates(user.Longitude, user.Latitude));
-            await BaseCollection.InsertOneAsync(user);
+            order.ApplicationUserId = applicationUser.Id;
+            order.UpdatedIn = DateTime.Now;
+
+            foreach (var address in order.Adresses)
+            {
+                address.Location = await GetGeopointsByAddress(address);
+            }
+
+            await BaseCollection.InsertOneAsync(order);
         }
 
-        public new async Task<User> Update(User user)
+        public new async Task<User> Update(User order)
         {
             await _userManager.UpdateAsync(new ApplicationUser
             {
-                Id = user.ApplicationUserId,
-                Email = user.Email,
+                Id = order.ApplicationUserId,
+                Email = order.Email,
                 EmailConfirmed = true
             });
 
-            user.UpdatedIn = DateTime.Now;
-            user.HomeAddress.Location = await GetGeopointsByAddress(user.HomeAddress);
-            user.Location =
-                new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
-                    new GeoJson2DGeographicCoordinates(user.Longitude, user.Latitude));
-            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == user.Id, user);
+            order.UpdatedIn = DateTime.Now;
+
+            foreach (var address in order.Adresses)
+            {
+                address.Location = await GetGeopointsByAddress(address);
+            }
+
+            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
         }
 
         private ApplicationUser CreateApplicationUser(ApplicationUser user, string password, string initialRole = null)

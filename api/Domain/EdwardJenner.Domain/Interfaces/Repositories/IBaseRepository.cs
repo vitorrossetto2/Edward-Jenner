@@ -8,10 +8,10 @@ namespace EdwardJenner.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<TModel> where TModel : IModelBase
     {
-        Task Insert(TModel entity);
+        Task Insert(TModel order);
         Task<TModel> FindBy(Expression<Func<TModel, bool>> filter);
         Task<IList<TModel>> ListBy(Expression<Func<TModel, bool>> filter);
-        Task<TModel> Update(TModel entity);
+        Task<TModel> Update(TModel order);
         Task Delete(Expression<Func<TModel, bool>> filter);
         Task<TModel> Save(TModel entity);
     }

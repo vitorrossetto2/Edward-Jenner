@@ -147,30 +147,5 @@ namespace EdwardJenner.WebApi.Controllers
 
             return Ok(result);
         }
-
-        [HttpGet]
-        [Route("near")]
-        public async Task<IActionResult> GetByNear(double longitude, double latitude, int distance)
-        {
-            IList<User> result;
-
-            try
-            {
-                result = await _cacheService.GetObjectListCache($"ej.user.getbynear.{longitude}.{latitude}.{distance}");
-
-                if (result == null)
-                {
-                    result = await _userRepository.ListByNearAsync(longitude, latitude, distance);
-                    await _cacheService.SetObjectListCache($"ej.user.getbynear.{longitude}.{latitude}.{distance}", result);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                result = await _userRepository.ListByNearAsync(longitude, latitude, distance);
-            }
-
-            return Ok(result);
-        }
     }
 }

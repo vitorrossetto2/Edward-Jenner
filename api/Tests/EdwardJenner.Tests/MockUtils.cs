@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EdwardJenner.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
@@ -17,6 +18,13 @@ namespace EdwardJenner.Tests
             mgr.Setup(x => x.CreateAsync(It.IsAny<TUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<TUser, string>((x, y) => ls.Add(x));
             mgr.Setup(x => x.UpdateAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success);
 
+            return mgr;
+        }
+
+        public static Mock<CacheService<TModel>> MockCacheService<TModel>() where TModel : class
+        {
+            var store = new Mock<IUserStore<TModel>>();
+            var mgr = new Mock<CacheService<TModel>>(store.Object, null, null, null, null, null, null, null, null);
             return mgr;
         }
     }

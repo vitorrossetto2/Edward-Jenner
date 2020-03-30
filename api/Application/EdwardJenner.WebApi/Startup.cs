@@ -1,18 +1,14 @@
-using System.IO;
-using System.Net;
 using EdwardJenner.Cross;
 using EdwardJenner.Cross.Interfaces;
 using EdwardJenner.Data.Repositories;
 using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Domain.Interfaces.Services;
 using EdwardJenner.Domain.Services;
-using EdwardJenner.Models.DTO;
 using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Models.Settings;
 using EdwardJenner.Security;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -124,6 +120,9 @@ namespace EdwardJenner.WebApi
             services.AddScoped<IGoogleMapsApi, GoogleMapsApi>();
 
             // Data
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
 

@@ -2,7 +2,7 @@
 
 namespace EdwardJenner.Domain.Interfaces.Repositories
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IItemRepository : IBaseRepository<Item>
     {
     }
 }

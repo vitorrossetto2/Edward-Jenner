@@ -80,6 +80,10 @@ namespace EdwardJenner.Models.Models
         [BsonElement("hiddenOrders")]
         [BsonRepresentation(BsonType.ObjectId)]
         public IList<string> HiddenOrders { get; set; }
+
+        [JsonProperty("distance")]
+        [BsonElement("distance")]
+        public int Distance { get; set; }
     }
 
     public enum UserType
