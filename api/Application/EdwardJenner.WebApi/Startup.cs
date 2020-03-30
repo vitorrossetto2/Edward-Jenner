@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace EdwardJenner.WebApi
 {
@@ -36,11 +37,10 @@ namespace EdwardJenner.WebApi
             ConfigureSettings(services);
             ConfigureInjection(services);
             services.AddControllers()
-                .AddJsonOptions(options =>
+                .AddNewtonsoftJson(option =>
                 {
-                    var serializerOptions = options.JsonSerializerOptions;
-                    serializerOptions.IgnoreNullValues = true;
-                    serializerOptions.IgnoreReadOnlyProperties = true;
+                    var serializerOptions = option.SerializerSettings;
+                    serializerOptions.NullValueHandling = NullValueHandling.Ignore;
                 });
         }
 

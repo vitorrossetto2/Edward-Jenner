@@ -12,11 +12,13 @@ namespace EdwardJenner.WebApi.Controllers
     {
         private readonly IItemRepository _itemRepository;
         private readonly ICacheService<Item> _cacheService;
+        private readonly ICacheService<Order> _orderCacheService;
 
-        public ItemController(IItemRepository itemRepository, ICacheService<Item> cacheService)
+        public ItemController(IItemRepository itemRepository, ICacheService<Item> cacheService, ICacheService<Order> orderCacheService)
         {
             _itemRepository = itemRepository;
             _cacheService = cacheService;
+            _orderCacheService = orderCacheService;
         }
 
         [HttpGet]
@@ -78,6 +80,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.item");
+                await _orderCacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
@@ -96,6 +99,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.item");
+                await _orderCacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
@@ -114,6 +118,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.item");
+                await _orderCacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
