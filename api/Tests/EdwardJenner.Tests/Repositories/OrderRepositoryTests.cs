@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using EdwardJenner.Data.Repositories;
+using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Models.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,17 +11,16 @@ namespace EdwardJenner.Tests.Repositories
     public class OrderRepositoryTests : BaseRepositoryTests
     {
         private static UserRepository _userRepository;
-
         private static OrderRepository _orderRepository;
         private static ItemRepository _itemRepository;
-        private static RatingRepository _ratingRepository;
+        private static IRatingRepository _ratingRepository;
 
         public OrderRepositoryTests()
         {
             _itemRepository = new ItemRepository(_mongoConnection);
-            _ratingRepository = new RatingRepository(_mongoConnection);
             _orderRepository = new OrderRepository(_mongoConnection, _itemRepository);
-            _userRepository = new UserRepository(_mongoConnection, _googleMapsApi, _googleGeocodeResultCache, _userManager);
+            _ratingRepository = new RatingRepository(_mongoConnection);
+            _userRepository = new UserRepository(_mongoConnection, _googleMapsApi, _googleGeocodeResultCache, _userManager, _ratingRepository);
         }
 
         [TestMethod]
@@ -50,11 +50,12 @@ namespace EdwardJenner.Tests.Repositories
             await _itemRepository.Insert(item);
 
             var orders = await _orderRepository.ListBy(x => true);
+
             Assert.IsNotNull(orders);
             Assert.IsNotNull(orders.FirstOrDefault()?.Items);
 
-            await _itemRepository.Delete(x => x.Id == item.Id);
-            await _orderRepository.Delete(x => x.Id == order.Id);
+            //await _itemRepository.Delete(x => x.Id == item.Id);
+            //await _orderRepository.Delete(x => x.Id == order.Id);
         }
 
         [TestMethod]

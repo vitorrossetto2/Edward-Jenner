@@ -12,11 +12,13 @@ namespace EdwardJenner.WebApi.Controllers
     {
         private readonly IRatingRepository _ratingRepository;
         private readonly ICacheService<Rating> _cacheService;
+        private readonly ICacheService<User> _userCacheService;
 
-        public RatingController(IRatingRepository ratingRepository, ICacheService<Rating> cacheService)
+        public RatingController(IRatingRepository ratingRepository, ICacheService<Rating> cacheService, ICacheService<User> userCacheService)
         {
             _ratingRepository = ratingRepository;
             _cacheService = cacheService;
+            _userCacheService = userCacheService;
         }
 
         [HttpGet]
@@ -78,6 +80,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.rating");
+                await _userCacheService.RemoveCacheByPattern("ej.user");
             }
             catch (Exception ex)
             {
@@ -96,6 +99,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.rating");
+                await _userCacheService.RemoveCacheByPattern("ej.user");
             }
             catch (Exception ex)
             {
@@ -114,6 +118,7 @@ namespace EdwardJenner.WebApi.Controllers
             try
             {
                 await _cacheService.RemoveCacheByPattern("ej.rating");
+                await _userCacheService.RemoveCacheByPattern("ej.user");
             }
             catch (Exception ex)
             {

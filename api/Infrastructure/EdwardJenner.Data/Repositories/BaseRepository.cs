@@ -23,10 +23,10 @@ namespace EdwardJenner.Data.Repositories
             return typeof(TModel).Name;
         }
 
-        public async Task<TModel> Update(TModel order)
+        public async Task<TModel> Update(TModel model)
         {
-            order.UpdatedIn = DateTime.Now;
-            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
+            model.UpdatedIn = DateTime.Now;
+            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == model.Id, model);
         }
 
         public async Task<TModel> Save(TModel entity)
@@ -42,10 +42,10 @@ namespace EdwardJenner.Data.Repositories
             return await BaseCollection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task Insert(TModel order)
+        public async Task Insert(TModel model)
         {
-            order.UpdatedIn = DateTime.Now;
-            await BaseCollection.InsertOneAsync(order);
+            model.UpdatedIn = DateTime.Now;
+            await BaseCollection.InsertOneAsync(model);
         }
 
         public async Task<IList<TModel>> ListBy(Expression<Func<TModel, bool>> filter)

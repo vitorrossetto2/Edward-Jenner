@@ -12,7 +12,6 @@ using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using EdwardJenner.Models.Settings;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Internal;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
 
@@ -23,15 +22,18 @@ namespace EdwardJenner.Data.Repositories
         private readonly IGoogleMapsApi _googleMapsApi;
         private readonly ICacheService<GoogleGeocodeResult> _cacheGoogleGeocodeService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IRatingRepository _ratingRepository;
 
         protected override string GetCollectionName() => "users";
 
-        public UserRepository(MongoConnection mongoConnection, IGoogleMapsApi googleMapsApi, ICacheService<GoogleGeocodeResult> cacheGoogleGeocodeService, UserManager<ApplicationUser> userManager) : base(mongoConnection)
+        public UserRepository(MongoConnection mongoConnection, IGoogleMapsApi googleMapsApi, ICacheService<GoogleGeocodeResult> cacheGoogleGeocodeService, UserManager<ApplicationUser> userManager, IRatingRepository ratingRepository) : base(mongoConnection)
         {
             _googleMapsApi = googleMapsApi;
             _cacheGoogleGeocodeService = cacheGoogleGeocodeService;
             _userManager = userManager;
+            _ratingRepository = ratingRepository;
             CreateIndexes();
+            Initialize();
         }
 
         private void CreateIndexes()
@@ -41,10 +43,30 @@ namespace EdwardJenner.Data.Repositories
             BaseCollection.Indexes.CreateOne(model);
         }
 
+        private async Task Initialize()
+        {
+            var users = await ListBy(x => true);
+            foreach (var user in users)
+            {
+                CreateApplicationUser(new ApplicationUser()
+                {
+                    UserName = user.Username,
+                    Email = user.Email,
+                    EmailConfirmed = true
+                }, user.Password, Roles.RoleApiEdwardJenner);
+            }
+        }
+
         public new async Task<User> FindBy(Expression<Func<User, bool>> filter)
         {
             var user = await BaseCollection.Find(filter).FirstOrDefaultAsync();
+            foreach (var address in user.Adresses)
+            {
+                address.Latitude = address.Location.Coordinates.Latitude;
+                address.Longitude = address.Location.Coordinates.Longitude;
+            }
             user.Password = null;
+            user.Ratings = await _ratingRepository.ListBy(x => x.UserId == user.Id);
             return user;
         }
 
@@ -53,48 +75,55 @@ namespace EdwardJenner.Data.Repositories
             var users = await BaseCollection.Find(filter).ToListAsync();
             foreach (var user in users)
             {
+                foreach (var address in user.Adresses)
+                {
+                    address.Latitude = address.Location.Coordinates.Latitude;
+                    address.Longitude = address.Location.Coordinates.Longitude;
+                }
                 user.Password = null;
+                user.Ratings = await _ratingRepository.ListBy(x => x.UserId == user.Id);
             }
             return users;
         }
 
-        public new async Task Insert(User order)
+        public new async Task Insert(User user)
         {
             var applicationUser = CreateApplicationUser(new ApplicationUser
             {
-                UserName = order.Username,
-                Email = order.Email,
+                UserName = user.Username,
+                Email = user.Email,
                 EmailConfirmed = true
-            }, order.Password, Roles.RoleApiEdwardJenner);
+            }, user.Password, Roles.RoleApiEdwardJenner);
 
-            order.ApplicationUserId = applicationUser.Id;
-            order.UpdatedIn = DateTime.Now;
+            user.ApplicationUserId = applicationUser.Id;
+            user.UpdatedIn = DateTime.Now;
 
-            foreach (var address in order.Adresses)
+            foreach (var address in user.Adresses)
             {
                 address.Location = await GetGeopointsByAddress(address);
             }
 
-            await BaseCollection.InsertOneAsync(order);
+            await BaseCollection.InsertOneAsync(user);
         }
 
-        public new async Task<User> Update(User order)
+        public new async Task<User> Update(User user)
         {
-            await _userManager.UpdateAsync(new ApplicationUser
-            {
-                Id = order.ApplicationUserId,
-                Email = order.Email,
-                EmailConfirmed = true
-            });
+            user.UpdatedIn = DateTime.Now;
 
-            order.UpdatedIn = DateTime.Now;
-
-            foreach (var address in order.Adresses)
+            foreach (var address in user.Adresses)
             {
                 address.Location = await GetGeopointsByAddress(address);
             }
 
-            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == order.Id, order);
+            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == user.Id, user);
+        }
+
+        public new async Task Delete(Expression<Func<User, bool>> filter)
+        {
+            var user = await FindBy(filter);
+            var applicationUser = await _userManager.FindByIdAsync(user.ApplicationUserId);
+            await _userManager.DeleteAsync(applicationUser);
+            await BaseCollection.DeleteManyAsync(filter);
         }
 
         private ApplicationUser CreateApplicationUser(ApplicationUser user, string password, string initialRole = null)
