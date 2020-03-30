@@ -367,3 +367,4 @@ MigrationBackup/
 
 dist/
 docs/
+yarn.lock
