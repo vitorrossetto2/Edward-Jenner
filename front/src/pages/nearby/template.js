@@ -2,23 +2,38 @@ export default {
   nearby(_defaultSelector, infos, btnGetRequest) {
     return {
       html: `
-        <div class="${_defaultSelector}__header">
-          <p class="${_defaultSelector}__header__name">${infos.client.name}</p>
-          <p class="${_defaultSelector}__header__distance">📍 ${infos.client.distance} km</p>
-        </div>
-        <div class="${_defaultSelector}__overlay">
-          <div class="${_defaultSelector}__description">
-            <div class="${_defaultSelector}__description__image">
+        <section class="${_defaultSelector}__overlay">
+          <div class="${_defaultSelector}__perfil">
+            <div class="${_defaultSelector}__perfil__avatar">
               <img src="${infos.client.image}" alt="${infos.client.name}">
             </div>
+            <article class="${_defaultSelector}__perfil__about">
+              <h2>${infos.client.name}</h2>
+              <h3>📍 ${infos.client.distance} km</h3>
+            </article>
+          </div>
+        
+          <div class="${_defaultSelector}__description">
             <p>${infos.client.description}</p>
           </div>
+
           <div class="${_defaultSelector}__request">
-            <ul>
-              ${infos.request.items.map((item) => `<li>${item}</li>`).join('')}
-            </ul>
+            ${infos.request.items
+              .map(
+                (item) =>
+                  `<dl>
+                    <dt>
+                      <h3>${item.nome}</h3>
+                    </dt>
+                    <dd>
+                      <p>Quantidade: ${item.quantidade} | Preço maximo: ${item.precoMaximo}</p>
+                    </dd>
+                  </dl>
+                `
+              )
+              .join('')}
           </div>
-        </div>
+        </section>
         <div class="btnGetRequest"></div>
     `,
       reference: ['.btnGetRequest'],
