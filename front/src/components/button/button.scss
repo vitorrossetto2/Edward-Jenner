@@ -31,6 +31,13 @@
   &--reverse {
     background: map_get($colors, 'red');
     color: map_get($colors, 'white');
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: map_get($colors, 'orange');
+      border: 1px solid map_get($colors, 'orange');
+    }
   }
 
   &:disabled {

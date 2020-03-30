@@ -25,6 +25,7 @@ export default class Register extends Component {
     this.button = el.querySelector('button');
     this.button.addEventListener('click', () => {
       console.log(_model); // eslint-disable-line
+      window.router.routeChange('login');
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((element) => {
@@ -32,7 +33,7 @@ export default class Register extends Component {
         const property = evt.target.name;
         _model[property] = evt.target.value;
 
-        if (_model.name && _model.email && _model.password) this.button.removeAttribute('disabled');
+        if (_model.name && _model.email && _model.password && _model.typeUser) this.button.removeAttribute('disabled');
         else this.button.setAttribute('disabled', true);
       });
     });

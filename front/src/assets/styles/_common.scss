@@ -12,6 +12,12 @@
   cursor: pointer;
   z-index: 1;
 
+  @include mq('tablet') {
+    height: map_get($spaces, 'normal');
+    width: map_get($spaces, 'normal');
+    min-width: map_get($spaces, 'normal');
+  }
+
   input {
     position: absolute;
     opacity: 0;
@@ -54,5 +60,24 @@
     border: 1px solid map_get($colors, 'white');
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+  }
+
+  @include mq('tablet') {
+    min-width: map_get($spaces, 'normal');
+    min-height: map_get($spaces, 'normal');
+    width: map_get($spaces, 'normal');
+    height: map_get($spaces, 'normal');
+
+    &:before {
+      width: map_get($spaces, 'normal');
+      height: map_get($spaces, 'normal');
+    }
+
+    &:after {
+      width: 4px;
+      height: 7px;
+      left: 4px;
+      top: 1px;
+    }
   }
 }

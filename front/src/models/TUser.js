@@ -10,6 +10,7 @@ export default class TUser {
     this.lon = user.lon;
     this.age = user.age;
     this.description = user.description;
+    this.keepConnected = false;
   }
 }
 
@@ -18,8 +19,7 @@ const typeUser = (type) => {
     risc: 0,
     help: 1,
     business: 2,
-    default: 0,
   };
 
-  return types[type] || types['default'];
+  return types[type];
 };
