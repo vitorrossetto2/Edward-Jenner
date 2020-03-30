@@ -65,7 +65,7 @@
       color: map_get($colors, 'black');
       padding: map_get($spaces, 'small') map_get($spaces, 'normal');
       p {
-        opacity: .85;
+        opacity: 0.85;
       }
       &:not(:last-of-type) {
         border-bottom: 2px solid darken($color: map_get($colors, 'red'), $amount: 5);

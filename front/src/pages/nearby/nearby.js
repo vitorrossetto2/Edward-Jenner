@@ -26,23 +26,22 @@ export default class Nearby extends Component {
         name: 'Claudio Alves',
         distance: 2,
         image: 'https://imagens.publico.pt/imagens.aspx/1406209?tp=UH&db=IMAGENS&type=JPG',
-        description:
-          'bla bla bla',
-        },
+        description: 'bla bla bla',
+      },
       request: {
         items: [
           {
             id: 1,
             nome: 'Item x',
             quantidade: 12,
-            precoMaximo: 30.50
+            precoMaximo: 30.5,
           },
           {
             id: 2,
             nome: 'Item x',
             quantidade: 12,
-            precoMaximo: 30.50
-          }
+            precoMaximo: 30.5,
+          },
         ],
       },
     };

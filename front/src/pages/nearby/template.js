@@ -18,9 +18,10 @@ export default {
           </div>
 
           <div class="${_defaultSelector}__request">
-            ${
-              infos.request.items.map((item) =>
-                `<dl>
+            ${infos.request.items
+              .map(
+                (item) =>
+                  `<dl>
                     <dt>
                       <h3>${item.nome}</h3>
                     </dt>
@@ -29,8 +30,8 @@ export default {
                     </dd>
                   </dl>
                 `
-              ).join('')
-            }
+              )
+              .join('')}
           </div>
         </section>
         <div class="btnGetRequest"></div>
