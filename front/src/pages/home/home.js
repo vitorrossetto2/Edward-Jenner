@@ -18,9 +18,19 @@ export default class Home extends Component {
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
-
-    const btnCadastro = new Button({ label: 'Cadastro' });
-    const btnLogin = new Button({ label: 'Login', cssClass: '--secondary' });
+    const btnCadastro = new Button({
+      label: 'Cadastro',
+      callback: () => {
+        window.router?.routeChange('register');
+      },
+    });
+    const btnLogin = new Button({
+      label: 'Login',
+      cssClass: '--secondary',
+      callback: () => {
+        window.router?.routeChange('login');
+      },
+    });
     const card = new Card({
       title: 'Título do card',
       body: 'Corpo do card',

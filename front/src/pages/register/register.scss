@@ -33,12 +33,30 @@
 
     @include mq('desktop') {
       padding: map_get($spaces, 'x-large');
-      margin-top: map_get($spaces, 'm-large');
+      margin-top: map_get($spaces, 'x-large');
     }
 
-    div {
-      position: relative;
-      height: 400px;
+    h4 {
+      margin: map_get($spaces, 'normal') 0;
+    }
+
+    &__terms {
+      max-height: 300px;
+      overflow-y: hidden;
+      padding: map_get($spaces, 'normal');
+      background: map_get($colors, 'gray-1');
+
+      &:hover {
+        overflow-y: scroll;
+      }
+    }
+
+    span {
+      font-size: map_get($textSize, 'small');
+      font-weight: 600;
+      display: block;
+      margin: map_get($spaces, 'normal') 0;
+      color: map_get($colors, 'red');
     }
   }
 }

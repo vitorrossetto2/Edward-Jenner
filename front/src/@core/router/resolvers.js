@@ -4,7 +4,7 @@ const resolveUser = async () => {
     setTimeout(() => {
       resolve({ user: 'Luis Paulo' });
       window.spinner.show(false);
-    }, 6000);
+    }, 1000);
   });
 };
 

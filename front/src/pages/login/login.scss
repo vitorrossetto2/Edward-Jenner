@@ -1,0 +1,37 @@
+@import '../../assets/styles/index.scss';
+
+.c__login {
+  width: 100%;
+  height: calc(100vh - #{$header-space});
+  /*background: map_get($colors, 'gray');*/
+  background: url(../../assets/img/banner_login_desk.jpg) no-repeat center center;
+  background-size: cover;
+
+  .container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    min-width: 90%;
+    padding: map_get($spaces, 'normal');
+    background: map_get($colors, 'white');
+
+    @include mq('tablet') {
+      min-width: 400px;
+    }
+
+    &__logotipo {
+      position: relative;
+      margin: 0 auto;
+      width: 120px;
+      height: 40px;
+      background: url(../../assets/img/logo.png) no-repeat center center;
+      background-size: contain;
+      margin-bottom: map_get($spaces, 'medium');
+    }
+  }
+}
