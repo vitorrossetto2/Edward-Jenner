@@ -5,7 +5,13 @@ on:
     paths-ignore:
     - '**.md'
     branches:
+    - feature/*
     - release/*
+    - hotfix/*
+  pull_request:
+    branches:
+    - master
+    - develop
 
 jobs:
   build:
