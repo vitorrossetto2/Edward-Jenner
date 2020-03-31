@@ -39,3 +39,6 @@ jobs:
         login-server: registry.lennon.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+    - name: Docker Build
+      run: ./build.sh
+      working-directory: api
