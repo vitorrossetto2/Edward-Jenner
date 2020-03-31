@@ -1,5 +1,15 @@
-﻿using System.Collections.Generic;
-using EdwardJenner.Domain.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using EdwardJenner.Cross.Interfaces;
+using EdwardJenner.Cross.Models;
+using EdwardJenner.Domain.Interfaces.Repositories;
+using EdwardJenner.Domain.Interfaces.Services;
+using EdwardJenner.Models.Interfaces.Models;
+using EdwardJenner.Models.Models;
+using EdwardJenner.Models.Settings;
+using EdwardJenner.Tests.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
@@ -7,6 +17,24 @@ namespace EdwardJenner.Tests
 {
     public static class MockUtils
     {
+        public static MongoConnection MongoConnection = new MongoConnection
+        {
+            ConnectionString = "mongodb://127.0.0.1:27017/edwardjenner",
+            Database = "edwardjenner"
+        };
+
+        public static RedisConnection RedisConnection = new RedisConnection
+        {
+            Host = "127.0.0.1",
+            Port = 6379,
+            Seconds = 60000
+        };
+
+        public static GoogleSettings GoogleSettings = new GoogleSettings
+        {
+            ApiKey = "AIzaSyA24yDHFfDuszVUomPTe8EiLTIdGjbESYc"
+        };
+
         public static Mock<UserManager<TUser>> MockUserManager<TUser>(List<TUser> ls) where TUser : class
         {
             var store = new Mock<IUserStore<TUser>>();
@@ -21,10 +49,77 @@ namespace EdwardJenner.Tests
             return mgr;
         }
 
-        public static Mock<CacheService<TModel>> MockCacheService<TModel>() where TModel : class
+        public static Mock<IGoogleMapsApi> MockGoogleMapsApi()
         {
-            var store = new Mock<IUserStore<TModel>>();
-            var mgr = new Mock<CacheService<TModel>>(store.Object, null, null, null, null, null, null, null, null);
+            var mgr = new Mock<IGoogleMapsApi>(GoogleSettings);
+
+            mgr.Setup(x => x.GetGeocode(It.IsAny<string>())).Returns(new GoogleGeocodeResponse { Results = ObjectHelper.GoogleGeocodeResults });
+
+            return mgr;
+        }
+
+        public static Mock<ICacheService<GoogleGeocodeResult>> MockCacheService_GoogleGeocode()
+        {
+            var mgr = new Mock<ICacheService<GoogleGeocodeResult>>();
+
+            mgr.Setup(x => x.GetObjectCache(It.IsAny<string>())).ReturnsAsync((string key) => ObjectHelper.GoogleGeocodeResults.FirstOrDefault());
+
+            return mgr;
+        }
+
+        public static Mock<IBaseRepository<TModel>> MockBaseRepository<TModel>() where TModel : IModelBase
+        {
+            var mgr = new Mock<IBaseRepository<TModel>>();
+
+            mgr.Setup(x => x.FindBy(It.IsAny<Expression<Func<TModel, bool>>>())).ReturnsAsync((Expression<Func<TModel, bool>> filter) => ObjectHelper<TModel>.Models().AsQueryable().Where(filter).FirstOrDefault());
+            mgr.Setup(x => x.ListBy(It.IsAny<Expression<Func<TModel, bool>>>())).ReturnsAsync((Expression<Func<TModel, bool>> filter) => ObjectHelper<TModel>.Models().AsQueryable().Where(filter).ToList());
+            mgr.Setup(x => x.Insert(It.IsAny<TModel>()));
+
+            return mgr;
+        }
+
+        public static Mock<IItemRepository> MockItemRepository()
+        {
+            var mgr = new Mock<IItemRepository>();
+
+            mgr.Setup(x => x.FindBy(It.IsAny<Expression<Func<Item, bool>>>())).ReturnsAsync((Expression<Func<Item, bool>> filter) => ObjectHelper.Items.AsQueryable().Where(filter).FirstOrDefault());
+            mgr.Setup(x => x.ListBy(It.IsAny<Expression<Func<Item, bool>>>())).ReturnsAsync((Expression<Func<Item, bool>> filter) => ObjectHelper.Items.AsQueryable().Where(filter).ToList());
+            mgr.Setup(x => x.Insert(It.IsAny<Item>()));
+
+            return mgr;
+        }
+
+        public static Mock<IOrderRepository> MockOrderRepository()
+        {
+            var mgr = new Mock<IOrderRepository>();
+
+            mgr.Setup(x => x.FindBy(It.IsAny<Expression<Func<Order, bool>>>())).ReturnsAsync((Expression<Func<Order, bool>> filter) => ObjectHelper.Orders.AsQueryable().Where(filter).FirstOrDefault());
+            mgr.Setup(x => x.ListBy(It.IsAny<Expression<Func<Order, bool>>>())).ReturnsAsync((Expression<Func<Order, bool>> filter) => ObjectHelper.Orders.AsQueryable().Where(filter).ToList());
+            mgr.Setup(x => x.ListByNearAsync(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>())).ReturnsAsync((double longitude, double latitude, double distance) => ObjectHelper.Orders);
+            mgr.Setup(x => x.Insert(It.IsAny<Order>()));
+
+            return mgr;
+        }
+
+        public static Mock<IRatingRepository> MockRatingRepository()
+        {
+            var mgr = new Mock<IRatingRepository>();
+
+            mgr.Setup(x => x.FindBy(It.IsAny<Expression<Func<Rating, bool>>>())).ReturnsAsync((Expression<Func<Rating, bool>> filter) => ObjectHelper.Ratings.AsQueryable().Where(filter).FirstOrDefault());
+            mgr.Setup(x => x.ListBy(It.IsAny<Expression<Func<Rating, bool>>>())).ReturnsAsync((Expression<Func<Rating, bool>> filter) => ObjectHelper.Ratings.AsQueryable().Where(filter).ToList());
+            mgr.Setup(x => x.Insert(It.IsAny<Rating>()));
+
+            return mgr;
+        }
+
+        public static Mock<IUserRepository> MockUserRepository()
+        {
+            var mgr = new Mock<IUserRepository>();
+
+            mgr.Setup(x => x.FindBy(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync((Expression<Func<User, bool>> filter) => ObjectHelper.Users.AsQueryable().Where(filter).FirstOrDefault());
+            mgr.Setup(x => x.ListBy(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync((Expression<Func<User, bool>> filter) => ObjectHelper.Users.AsQueryable().Where(filter).ToList());
+            mgr.Setup(x => x.Insert(It.IsAny<User>()));
+
             return mgr;
         }
     }
