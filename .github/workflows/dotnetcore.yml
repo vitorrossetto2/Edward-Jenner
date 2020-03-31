@@ -33,15 +33,15 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
       working-directory: api
-    - name: Docker Login
-      uses: Azure/docker-login@v1
-      with:
-        login-server: registry.lennon.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-    - name: Docker Build Permission
-      run: chmod +x ./build.sh
-      working-directory: api
-    - name: Docker Build
-      run: ./build.sh
-      working-directory: api
+#    - name: Docker Login
+#      uses: Azure/docker-login@v1
+#      with:
+#        login-server: registry.lennon.io
+#        username: ${{ secrets.REGISTRY_USERNAME }}
+#        password: ${{ secrets.REGISTRY_PASSWORD }}
+#    - name: Docker Build Permission
+#      run: chmod +x ./build.sh
+#      working-directory: api
+#    - name: Docker Build
+#      run: ./build.sh
+#      working-directory: api
