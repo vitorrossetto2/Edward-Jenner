@@ -16,12 +16,9 @@ namespace EdwardJenner.Data.Repositories
         {
         }
 
-        protected IMongoCollection<TModel> BaseCollection => Database.GetCollection<TModel>(GetCollectionName());
+        protected virtual string GetCollectionName() => typeof(TModel).Name;
 
-        protected virtual string GetCollectionName()
-        {
-            return typeof(TModel).Name;
-        }
+        protected IMongoCollection<TModel> BaseCollection => Database.GetCollection<TModel>(GetCollectionName());
 
         public async Task<TModel> Update(TModel model)
         {

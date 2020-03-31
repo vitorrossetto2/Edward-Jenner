@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using EdwardJenner.Cross.Models;
 using EdwardJenner.Models.Interfaces.Models;
 using EdwardJenner.Models.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EdwardJenner.Tests.Repositories
 {
     public static class ObjectHelper
     {
-        public static string UserId = "d7a0dfe41f004cf483f14acc2a3b5475";
         public static string OrderId = "1a3e6757844b44c890a1337c8180f903";
+        public static string ItemId = "9369be2242e440cabc703aaf3ee49d2c";
+        public static string RatingId = "8fc1e4ae5898496cac4c9e19b7e7421e";
+        public static string UserId = "d7a0dfe41f004cf483f14acc2a3b5475";
 
         public static List<ApplicationUser> ApplicationUsers => new List<ApplicationUser>
         {
@@ -25,6 +26,7 @@ namespace EdwardJenner.Tests.Repositories
         public static List<Item> Items => new List<Item> {
             new Item
             {
+                Id = ItemId,
                 OrderId = OrderId,
                 Nome = "Arroz",
                 Quantity = 1,
@@ -48,6 +50,7 @@ namespace EdwardJenner.Tests.Repositories
         {
             new Rating
             {
+                Id = RatingId,
                 Description = "Rating description.",
                 Rate = 4,
                 UserId = UserId
@@ -115,22 +118,22 @@ namespace EdwardJenner.Tests.Repositories
     {
         public static List<TModel> Models()
         {
-            if (typeof(TModel) == typeof(Item))
+            if (typeof(TModel).Name == typeof(Item).Name)
             {
                 return (List<TModel>)Convert.ChangeType(ObjectHelper.Items, typeof(List<TModel>));
             }
 
-            if (typeof(TModel) == typeof(Order))
+            if (typeof(TModel).Name == typeof(Order).Name)
             {
                 return (List<TModel>)Convert.ChangeType(ObjectHelper.Orders, typeof(List<TModel>));
             }
 
-            if (typeof(TModel) == typeof(Rating))
+            if (typeof(TModel).Name == typeof(Rating).Name)
             {
                 return (List<TModel>)Convert.ChangeType(ObjectHelper.Ratings, typeof(List<TModel>));
             }
 
-            if (typeof(TModel) == typeof(User))
+            if (typeof(TModel).Name == typeof(User).Name)
             {
                 return (List<TModel>)Convert.ChangeType(ObjectHelper.Users, typeof(List<TModel>));
             }

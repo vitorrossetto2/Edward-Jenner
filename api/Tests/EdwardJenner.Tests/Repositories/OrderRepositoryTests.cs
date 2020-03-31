@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using EdwardJenner.Data.Repositories;
+using EdwardJenner.Domain.Interfaces.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EdwardJenner.Tests.Repositories
@@ -8,9 +8,9 @@ namespace EdwardJenner.Tests.Repositories
     [TestClass]
     public class OrderRepositoryTests : BaseRepositoryTests
     {
-        private static UserRepository _userRepository;
-        private static OrderRepository _orderRepository;
-        private static ItemRepository _itemRepository;
+        private static IUserRepository _userRepository;
+        private static IOrderRepository _orderRepository;
+        private static IItemRepository _itemRepository;
 
         public OrderRepositoryTests()
         {
@@ -23,19 +23,20 @@ namespace EdwardJenner.Tests.Repositories
         public async Task CreateCompleteTest()
         {
             var user = await _userRepository.FindBy(x => x.Username == "lennonalvesdias");
+            Assert.IsNotNull(user);
 
             var order = ObjectHelper.Orders.FirstOrDefault();
+            Assert.IsNotNull(order);
 
             await _orderRepository.Insert(order);
 
             var item = ObjectHelper.Items.FirstOrDefault();
+            Assert.IsNotNull(item);
 
             await _itemRepository.Insert(item);
 
             var orders = await _orderRepository.ListBy(x => true);
-
-            Assert.IsNotNull(orders);
-            Assert.IsNotNull(orders.FirstOrDefault()?.Items);
+            Assert.IsTrue(orders.Any());
         }
 
         [TestMethod]
