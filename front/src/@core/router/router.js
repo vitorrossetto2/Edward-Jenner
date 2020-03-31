@@ -20,11 +20,11 @@ export default class Router {
   }
 
   getInitialRoute() {
-    let route = window.location.href.split('/#');
+    let route = window.location.href.split('#');
     if (route.length > 1) {
       this.routeChange(route[1], true);
     } else {
-      this.routeChange('/', true);
+      this.routeChange('', true);
     }
   }
 
@@ -50,8 +50,8 @@ export default class Router {
   }
 
   controlHistoryPushState(route, pop) {
-    const splitUrl = window.location.href.split('/#');
-    if (route === '/') return window.location.href.split('/#')[0];
+    const splitUrl = window.location.href.split('#');
+    if (route === '/') return window.location.href.split('#')[0];
     let count = privateProperties.get(this)['id'] + 1;
     setPrivateProperties(privateProperties, this, { id: count });
     if (!pop) window.history.pushState({ route, id: count }, document.title, `${splitUrl[0]}#${route}`);
@@ -59,7 +59,7 @@ export default class Router {
 
   controlHistoryPopState() {
     const state = window.history.state;
-    if (!state) this.routeChange('/');
+    if (!state) this.routeChange('');
     else this.routeChange(state.route, true);
   }
 }

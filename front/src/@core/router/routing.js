@@ -1,9 +1,9 @@
-import { Education, Home, Login, Map, Nearby, Register } from '../../pages';
+import { Education, Home, Login, Map, Nearby, Register, Welcome } from '../../pages';
 import { resolveUser } from './resolvers';
 
 const routes = [
   {
-    path: '/',
+    path: '',
     component: new Home(),
   },
   {
@@ -17,7 +17,6 @@ const routes = [
   {
     path: 'login',
     component: new Login(),
-    resolve: resolveUser,
   },
   {
     path: 'register',
@@ -25,7 +24,7 @@ const routes = [
   },
   {
     path: 'welcome',
-    component: {},
+    component: new Welcome(),
     resolve: resolveUser,
   },
   {

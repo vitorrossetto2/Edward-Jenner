@@ -1,8 +1,9 @@
 import Button from './button/button';
 import Card from './card/card';
-import Content from './content/content';
-import Header from './header/header';
 import Input from './input/input';
-import Spinner from './spinner/spinner';
+import { alert } from './alert';
+import { content } from './content';
+import { header } from './header';
+import { spinner } from './spinner';
 
-export { Button, Card, Content, Header, Input, Spinner };
+export { Button, Card, Input, alert, content, header, spinner };

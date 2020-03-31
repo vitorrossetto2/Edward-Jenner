@@ -1,0 +1,40 @@
+@import '../../assets/styles/index.scss';
+
+.c__alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+
+  &__message {
+    max-width: 280px;
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    background: map_get($colors, 'white');
+    margin-bottom: map_get($spaces, 'small');
+
+    &--success &__icon {
+      background: map_get($colors, 'success');
+      color: map_get($colors, 'white');
+    }
+
+    &--error &__icon {
+      background: map_get($colors, 'error');
+      color: map_get($colors, 'white');
+    }
+
+    &__icon {
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: map_get($textSize, 'large');
+    }
+
+    p {
+      padding: map_get($spaces, 'normal');
+      font-weight: 600;
+    }
+  }
+}

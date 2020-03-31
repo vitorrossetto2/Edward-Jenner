@@ -1,8 +1,10 @@
 import './app.scss';
-import { Content, Header, Spinner } from '../components';
-import { Router, setPrivateProperties } from '../@core';
-import { STRINGS, setDelay } from '../utils';
+import { Router, setPrivateProperties } from '../../../@core';
+import { STRINGS, loadPolyfills, setDelay } from '../../../utils';
+import { alert, content, header, spinner } from '../../../components';
 import template from './template.js';
+
+loadPolyfills();
 
 const privateProperties = new WeakMap();
 window.router = new Router();
@@ -29,7 +31,6 @@ export default class App {
     _injectInto.innerHTML = template.app(name);
     this.el = _injectInto.querySelector(`#${name}`);
 
-    const spinner = new Spinner();
     this.el.appendChild(spinner.render());
     spinner.show(true);
     setDelay(1000).then(() => {
@@ -42,10 +43,9 @@ export default class App {
 
   createChilds() {
     const { el } = this;
-    const header = new Header();
-    const content = new Content();
     setPrivateProperties(privateProperties, this, { _header: header, _content: content });
-    [header.render(), content.render()].forEach((item) => el.appendChild(item));
+    window.alertMessage = alert;
+    [alert.render(), header.render(), content.render()].forEach((item) => el.appendChild(item));
   }
 
   /**

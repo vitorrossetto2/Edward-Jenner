@@ -1,5 +1,5 @@
 export default {
-  header(_defaultSelector, _items) {
+  header(_defaultSelector, navigation) {
     return `
       <div class="container">
         <div class="${_defaultSelector}__logotipo">
@@ -10,24 +10,29 @@ export default {
         </div>
         <div class="${_defaultSelector}__navigation">
           <div class="${_defaultSelector}__navigation__logotipo"></div>
-          <ul>
-            ${_items
-              .map((item) => {
-                return `
-                <li>
-                  <a href="#${item.route}">
-                    <span>
-                      <i class="${item.icon}"></i>
-                    </span>
-                    ${item.name}
-                  </a>
-                </li>
-              `;
-              })
-              .join('')}
-          </ul>
+          ${navigation}
         </div>
       </div>
+    `;
+  },
+  navigation(_defaultSelector, _items) {
+    return `      
+      <ul>
+        ${_items
+          .map((item) => {
+            return `
+            <li>
+              <a href="#${item.route}">
+                <span>
+                  <i class="${item.icon}"></i>
+                </span>
+                ${item.name}
+              </a>
+            </li>
+          `;
+          })
+          .join('')}
+      </ul>      
     `;
   },
 };

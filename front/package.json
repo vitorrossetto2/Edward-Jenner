@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "PWA para ajuda comunitária",
   "scripts": {
+    "mock": "./node_modules/.bin/json-server --watch mocks/index.json",
     "local": "webpack-dev-server --open --watch --display-error-details --config ./config/webpack.dev --env=./.env --mode development",
     "build": "rimraf dist && webpack --config ./config/webpack.prod  --env=./.env --mode production",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
