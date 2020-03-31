@@ -13,6 +13,10 @@
     <img alt="Repository issues" src="https://img.shields.io/github/issues/lennonalvesdias/Edward-Jenner.svg">
   </a>
 
+  <a href="https://github.com/lennonalvesdias/Edward-Jenner/api">
+    <img alt=".NetCore Build" src="https://github.com/lennonalvesdias/Edward-Jenner/workflows/.NET%20Core/badge.svg">
+  </a>
+
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
 </p>
 
