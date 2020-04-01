@@ -6,4 +6,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: map_get($colors, 'gray');
+}
+
+.logged .c__notfound {
+  min-height: 100vh;
 }

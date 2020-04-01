@@ -1,13 +1,13 @@
-import { Notfound } from '../../pages';
-import { routes } from './routing';
+import { ErrorPage, Notfound } from '../../pages';
 import { setPrivateProperties } from '../_shared';
 
 const privateProperties = new WeakMap();
 
 export default class Router {
-  constructor() {
+  constructor(routes = []) {
     privateProperties.set(this, {
       id: 0,
+      _routes: routes,
     });
     window.onpopstate = () => {
       this.controlHistoryPopState();
@@ -29,31 +29,65 @@ export default class Router {
   }
 
   async routeChange(route = '', pop = false) {
-    const { _content } = privateProperties.get(this);
-    const component = routes.filter((x) => x.path === route);
-    if (component.length > 0) {
-      this.controlHistoryPushState(route, pop);
-      if ('resolve' in component[0]) {
-        try {
-          const response = await component[0].resolve();
-          _content.data(component[0].component, response);
-        } catch (err) {
-          console.log(err); // eslint-disable-line
-          //_content.route(new PageError());
-        }
-      } else {
-        _content.route(component[0].component);
-      }
+    const { _content, _routes } = privateProperties.get(this);
+    const component = _routes.find((x) => x.path === route);
+    let page = new Notfound();
+
+    if (!component) return _content.route(new Notfound());
+
+    this.controlHistoryPushState(route, pop);
+
+    if ('guard' in component) {
+      page = await this.applyGuard(component);
+    } else if ('resolve' in component) {
+      page = await this.applyResolve(component);
     } else {
-      _content.route(new Notfound());
+      page = new component.page();
+    }
+
+    if (!page) {
+      _content.route(new ErrorPage());
+      return;
+    }
+    _content.route(page);
+  }
+
+  async applyResolve(component) {
+    try {
+      const response = await component.resolve();
+      return new component.page(response);
+    } catch (err) {
+      console.log(err); // eslint-disable-line
+      return false;
+      //_content.route(new PageError());
+    }
+  }
+
+  async applyGuard(component) {
+    const { _routes } = privateProperties.get(this);
+    try {
+      if (!component.guard()) {
+        window.location.href = _routes.find((x) => x.path === '**').page;
+        return false;
+      }
+      if ('resolve' in component) {
+        return await this.applyResolve(component);
+      }
+      return new component.page();
+    } catch (err) {
+      console.log(err); // eslint-disable-line
+      return false;
     }
   }
 
   controlHistoryPushState(route, pop) {
     const splitUrl = window.location.href.split('#');
+
     if (route === '/') return window.location.href.split('#')[0];
+
     let count = privateProperties.get(this)['id'] + 1;
     setPrivateProperties(privateProperties, this, { id: count });
+
     if (!pop) window.history.pushState({ route, id: count }, document.title, `${splitUrl[0]}#${route}`);
   }
 

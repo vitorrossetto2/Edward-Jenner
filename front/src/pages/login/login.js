@@ -1,8 +1,8 @@
 import './login.scss';
-import { alert, header } from '../../components';
+import { checkLogin, storageUser } from '../../utils';
 import { Component } from '../../@core';
 import { TUser } from '../../models';
-import { checkLogin } from '../../utils';
+import { alert } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -28,8 +28,8 @@ export default class Login extends Component {
       evt.preventDefault();
       const response = await checkLogin(_model);
       if (response) {
-        console.log(header); //eslint-disable-line
-        window.location.href = 'portal.html#welcome';
+        storageUser(response);
+        window.location.href = 'portal.html';
       } else alert.showMessage(1, 'Erro ao efetuar o login');
     });
 

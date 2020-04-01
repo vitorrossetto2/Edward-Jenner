@@ -4,6 +4,7 @@ import Input from './input/input';
 import { alert } from './alert';
 import { content } from './content';
 import { header } from './header';
+import { navigation } from './navigation';
 import { spinner } from './spinner';
 
-export { Button, Card, Input, alert, content, header, spinner };
+export { Button, Card, Input, alert, content, header, navigation, spinner };

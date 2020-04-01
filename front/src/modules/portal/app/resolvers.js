@@ -1,4 +1,4 @@
-import { STRINGS } from '../../utils';
+import { STRINGS } from '../../../utils';
 
 const resolveUser = async () => {
   return new Promise((resolve) => {

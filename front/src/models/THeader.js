@@ -30,8 +30,13 @@ const logged = [
   },
   {
     name: 'Listas',
-    icon: 'icon-basket-2',
+    icon: 'icon-basket-3',
     route: 'list',
+  },
+  {
+    name: 'Mapa',
+    icon: 'icon-map-o',
+    route: 'map',
   },
 ];
 

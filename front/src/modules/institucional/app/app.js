@@ -2,12 +2,13 @@ import './app.scss';
 import { Router, setPrivateProperties } from '../../../@core';
 import { STRINGS, loadPolyfills, setDelay } from '../../../utils';
 import { alert, content, header, spinner } from '../../../components';
+import { routes } from './routing';
 import template from './template.js';
 
 loadPolyfills();
 
 const privateProperties = new WeakMap();
-window.router = new Router();
+window.router = new Router(routes);
 /**
  * @class App
  * @classdesc Componente principal

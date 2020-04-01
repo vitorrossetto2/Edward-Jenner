@@ -1,37 +1,36 @@
 import './app.scss';
-import { Router, setPrivateProperties } from '../../../@core';
+import { Component, Router, setPrivateProperties } from '../../../@core';
 import { STRINGS, loadPolyfills, setDelay } from '../../../utils';
-import { alert, content, header, spinner } from '../../../components';
-import template from './template.js';
+import { alert, content, navigation, spinner } from '../../../components';
+import { routes } from './routing';
 
 loadPolyfills();
 
 const privateProperties = new WeakMap();
-window.router = new Router();
+window.router = new Router(routes);
 /**
  * @class App
  * @classdesc Componente principal
  * @constructs App
  */
-export default class App {
-  constructor(options = {}) {
+export default class App extends Component {
+  constructor() {
+    super();
     privateProperties.set(this, {
       _defaultSelector: 'app__raio__do__bem',
-      _injectInto: options.injectInto || document.querySelector('body'),
     });
 
     this.renderCritical();
   }
 
   renderCritical() {
-    // TODO - spinner
-    const { _injectInto } = privateProperties.get(this);
     const name = STRINGS.PROJECT_IDENTIFY;
+    const body = document.querySelector('body');
 
-    _injectInto.innerHTML = template.app(name);
-    this.el = _injectInto.querySelector(`#${name}`);
-
+    this.el = this.template('div', { id: name, class: 'logged' });
     this.el.appendChild(spinner.render());
+    body.appendChild(this.el);
+
     spinner.show(true);
     setDelay(1000).then(() => {
       spinner.show(false);
@@ -43,9 +42,9 @@ export default class App {
 
   createChilds() {
     const { el } = this;
-    setPrivateProperties(privateProperties, this, { _header: header, _content: content });
+    setPrivateProperties(privateProperties, this, { _content: content, _navigation: navigation });
     window.alertMessage = alert;
-    [alert.render(), header.render(), content.render()].forEach((item) => el.appendChild(item));
+    [alert.render(), navigation.render(), content.render()].forEach((item) => el.appendChild(item));
   }
 
   /**
