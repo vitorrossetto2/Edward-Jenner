@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using EdwardJenner.Data.Repositories;
+using EdwardJenner.Domain.Interfaces.Repositories;
 using EdwardJenner.Models.Models;
 using EdwardJenner.Models.Security;
 using Microsoft.AspNetCore.Identity;
@@ -25,9 +27,9 @@ namespace EdwardJenner.Security
 
             if (!_roleManager.RoleExistsAsync(Roles.RoleApiEdwardJenner).Result)
             {
-                var resultado = _roleManager.CreateAsync(new IdentityRole(Roles.RoleApiEdwardJenner)).Result;
+                var result = _roleManager.CreateAsync(new IdentityRole(Roles.RoleApiEdwardJenner)).Result;
 
-                if (!resultado.Succeeded)
+                if (!result.Succeeded)
                 {
                     throw new Exception($"Erro durante a criação da role {Roles.RoleApiEdwardJenner}.");
                 }
@@ -35,8 +37,8 @@ namespace EdwardJenner.Security
 
             CreateUser(new ApplicationUser()
             {
-                UserName = "lennonalvesdias",
-                Email = "lennonalvesdias@gmail.com",
+                UserName = "edwardjenner",
+                Email = "edwardjenner",
                 EmailConfirmed = true
             }, "FYUQ9PnWcvRZEoGVaux!", Roles.RoleApiEdwardJenner);
         }

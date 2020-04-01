@@ -78,7 +78,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"userId\": \"lennonalvesdias\",\r\n\t\"password\": \"FYUQ9PnWcvRZEoGVaux!\",\r\n\t\"refreshToken\": null,\r\n\t\"grantType\": \"password\"\r\n}",
+							"raw": "{\r\n\t\"userId\": \"{{user}}\",\r\n\t\"password\": \"{{password}}\",\r\n\t\"refreshToken\": null,\r\n\t\"grantType\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,6 +93,436 @@
 							"path": [
 								"api",
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/item",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad0ad7f0-55e7-424d-b869-f71bfbed30b6",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": \"5e8160b8009d1aa6fcba8902\",\n    \"name\": \"Arroz\",\n    \"quantity\": 1,\n    \"maximumPrice\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/item",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"5e814d9260b9b2de4057c62f\",\n    \"orderId\": \"5e814cec0d6426ce34ac8fe4\",\n    \"nome\": \"Macarrão\",\n    \"quantity\": 1,\n    \"maximumPrice\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/item",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/item/5e814d9260b9b2de4057c62f",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"item",
+								"5e814d9260b9b2de4057c62f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/order",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad0ad7f0-55e7-424d-b869-f71bfbed30b6",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"5e81609b009d1aa6fcba8900\",\n    \"orderType\": 0,\n    \"lastStatus\": 0,\n    \"longitude\": -46.6688605,\n    \"latitude\": -23.6104878\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/order",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"5e8151b4092ed0da7863f89c\",\n    \"userId\": \"5e814c931dcca771d84a082e\",\n    \"orderType\": 1,\n    \"lastStatus\": 0,\n    \"longitude\": -46.6688605,\n    \"latitude\": -23.6104878\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/order",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/order/5e815154092ed0da7863f89b",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"order",
+								"5e815154092ed0da7863f89b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "near",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/order/near?longitude=-46.6688605&latitude=-23.6104878&distance=1300",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"order",
+								"near"
+							],
+							"query": [
+								{
+									"key": "longitude",
+									"value": "-46.6688605"
+								},
+								{
+									"key": "latitude",
+									"value": "-23.6104878"
+								},
+								{
+									"key": "distance",
+									"value": "1300"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8357e144-edfd-44e2-a975-39d130100284",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/rating",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad0ad7f0-55e7-424d-b869-f71bfbed30b6",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"5e81609b009d1aa6fcba8900\",\n    \"rate\": 4,\n    \"description\": \"Rating description.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/rating",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"5e81581c04c694d54082099c\",\n    \"userId\": \"5e81581c04c694d54082099b\",\n    \"rate\": 5,\n    \"description\": \"Rating description.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlBase}}/rating",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rating",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{urlBase}}/rating/5e81581c04c694d54082099c",
+							"host": [
+								"{{urlBase}}"
+							],
+							"path": [
+								"rating",
+								"5e81581c04c694d54082099c"
 							]
 						}
 					},
@@ -162,7 +592,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Lennon Dias\",\n    \"username\": \"lennonalvesdias\",\n    \"email\": \"lennonalvesdias@gmail.com\",\n    \"password\": \"\",\n    \"cpf\": \"01234567890\",\n    \"homeAddress\": {\n        \"country\": \"BR\",\n        \"state\": \"SP\",\n        \"city\": \"São Paulo\",\n        \"neighborhood\": \"Planalto Paulista\",\n        \"street\": \"Avenida Moema\",\n        \"number\": \"84\"\n    },\n    \"longitude\": -46.6620627,\n    \"latitude\": -23.6036901,\n    \"mobilePhone\": {\n        \"ddd\": \"997210201\",\n        \"number\": \"14\"\n    }\n}",
+							"raw": "{\r\n    \"name\": \"Lennon Dias\",\r\n    \"username\": \"lennonalvesdias\",\r\n    \"email\": \"lennonalvesdias@gmail.com\",\r\n    \"password\": \"qLF!Ydzu6G82\",\r\n    \"avatar\": null,\r\n    \"cpf\": \"01234567890\",\r\n    \"adresses\": [\r\n        {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"number\": \"84\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"phones\": [\r\n        {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"applicationUserId\": \"dbe1046c-4157-4881-891a-84a0ba384321\",\r\n    \"type\": 1,\r\n    \"birthday\": \"1994-07-18T03:00:00Z\",\r\n    \"distance\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,62 +643,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{urlBase}}/user/53804910-42b9-11e9-a700-af9302a04d31",
+							"raw": "{{urlBase}}/user/5e814b7fdc16bfaff052a6c2",
 							"host": [
 								"{{urlBase}}"
 							],
 							"path": [
 								"user",
-								"53804910-42b9-11e9-a700-af9302a04d31"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "near",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "8357e144-edfd-44e2-a975-39d130100284",
-								"exec": [
-									"pm.test(\"Response time is less than 200ms\", function () {",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);",
-									"});",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{urlBase}}/user/near?longitude=-46.6688605&latitude=-23.6104878&distance=1300",
-							"host": [
-								"{{urlBase}}"
-							],
-							"path": [
-								"user",
-								"near"
-							],
-							"query": [
-								{
-									"key": "longitude",
-									"value": "-46.6688605"
-								},
-								{
-									"key": "latitude",
-									"value": "-23.6104878"
-								},
-								{
-									"key": "distance",
-									"value": "1300"
-								}
+								"5e814b7fdc16bfaff052a6c2"
 							]
 						}
 					},

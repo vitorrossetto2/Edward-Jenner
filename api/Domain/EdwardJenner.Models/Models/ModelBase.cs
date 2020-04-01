@@ -14,8 +14,8 @@ namespace EdwardJenner.Models.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [JsonProperty("updated_in")]
-        [BsonElement("updated_in")]
+        [JsonProperty("updatedIn")]
+        [BsonElement("updatedIn")]
         public DateTime UpdatedIn { get; set; }
 
         public override string ToString()

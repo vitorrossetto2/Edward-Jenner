@@ -13,7 +13,17 @@
     <img alt="Repository issues" src="https://img.shields.io/github/issues/lennonalvesdias/Edward-Jenner.svg">
   </a>
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+  <a href="api">
+    <img alt=".NetCore Build" src="https://github.com/lennonalvesdias/Edward-Jenner/workflows/.NET%20Core/badge.svg">
+  </a>
+
+  <a href="front">
+    <img alt="NodeJS Build" src="https://github.com/lennonalvesdias/Edward-Jenner/workflows/Node.js%20CI/badge.svg">
+  </a>
+
+  <a href="LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+  </a>
 </p>
 
 ## 💻 Aplicação

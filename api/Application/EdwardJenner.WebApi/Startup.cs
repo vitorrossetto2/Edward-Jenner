@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace EdwardJenner.WebApi
 {
@@ -35,7 +36,12 @@ namespace EdwardJenner.WebApi
             ConfigureSecurity(services);
             ConfigureSettings(services);
             ConfigureInjection(services);
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(option =>
+                {
+                    var serializerOptions = option.SerializerSettings;
+                    serializerOptions.NullValueHandling = NullValueHandling.Ignore;
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -44,6 +50,28 @@ namespace EdwardJenner.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseExceptionHandler(appError =>
+            //{
+            //    appError.Run(async context =>
+            //    {
+            //        context.Response.ContentType = "application/json";
+
+            //        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+            //        if (contextFeature != null)
+            //        {
+            //            var errorDetails = new ErrorDetails
+            //            {
+            //                Message = contextFeature.Error.Message,
+            //                ExceptionMessage = contextFeature.Error.InnerException?.Message,
+            //                ExceptionType = null,
+            //                StackTrace = contextFeature.Error.StackTrace
+            //            };
+
+            //            await context.Response.WriteAsync(errorDetails.ToString());
+            //        }
+            //    });
+            //});
 
             new IdentityInitializer(context, userManager, roleManager).Initialize();
 
@@ -92,6 +120,9 @@ namespace EdwardJenner.WebApi
             services.AddScoped<IGoogleMapsApi, GoogleMapsApi>();
 
             // Data
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
 

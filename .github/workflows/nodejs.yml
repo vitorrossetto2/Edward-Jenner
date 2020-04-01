@@ -1,0 +1,60 @@
+name: Node.js CI
+
+on:
+  push:
+    paths-ignore:
+    - '**.md'
+    branches:
+    - feature/*
+    - release/*
+    - hotfix/*
+  pull_request:
+    branches:
+    - master
+    - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+      working-directory: front
+    - run: npm run build --if-present
+      working-directory: front
+    - run: npm test
+      env:
+        CI: true
+      working-directory: front
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        login-server: registry.lennon.cloud
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - name: Docker Build
+      run: |
+        docker build . -t registry.lennon.cloud/edwardjenner/front:${{ github.sha }}
+        docker tag registry.lennon.cloud/edwardjenner/front:${{ github.sha }} registry.lennon.cloud/edwardjenner/front:latest
+        docker push registry.lennon.cloud/edwardjenner/front:${{ github.sha }}
+        docker push registry.lennon.cloud/edwardjenner/front:latest
+      working-directory: front
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_ADDRESS }}
+        username: ${{ secrets.HOST_USERNAME }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        script: |
+          chmod +x ./restart_front.sh
+          ./restart_front.sh

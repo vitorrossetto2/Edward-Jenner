@@ -12,17 +12,18 @@ namespace EdwardJenner.Data.Repositories
 {
     public class BaseRepository<TModel> : MongoDbBaseRepository, IBaseRepository<TModel> where TModel : IModelBase
     {
-        protected virtual string GetCollectionName()
+        public BaseRepository(MongoConnection mongoConnection) : base(mongoConnection)
         {
-            return typeof(TModel).Name;
         }
+
+        protected virtual string GetCollectionName() => typeof(TModel).Name;
 
         protected IMongoCollection<TModel> BaseCollection => Database.GetCollection<TModel>(GetCollectionName());
 
-        public async Task<TModel> Update(TModel entity)
+        public async Task<TModel> Update(TModel model)
         {
-            entity.UpdatedIn = DateTime.Now;
-            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
+            model.UpdatedIn = DateTime.Now;
+            return await BaseCollection.FindOneAndReplaceAsync(x => x.Id == model.Id, model);
         }
 
         public async Task<TModel> Save(TModel entity)
@@ -38,10 +39,10 @@ namespace EdwardJenner.Data.Repositories
             return await BaseCollection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task Insert(TModel entity)
+        public async Task Insert(TModel model)
         {
-            entity.UpdatedIn = DateTime.Now;
-            await BaseCollection.InsertOneAsync(entity);
+            model.UpdatedIn = DateTime.Now;
+            await BaseCollection.InsertOneAsync(model);
         }
 
         public async Task<IList<TModel>> ListBy(Expression<Func<TModel, bool>> filter)
@@ -52,10 +53,6 @@ namespace EdwardJenner.Data.Repositories
         public async Task Delete(Expression<Func<TModel, bool>> filter)
         {
             await BaseCollection.DeleteManyAsync(filter);
-        }
-
-        public BaseRepository(MongoConnection mongoConnection) : base(mongoConnection)
-        {
         }
     }
 }

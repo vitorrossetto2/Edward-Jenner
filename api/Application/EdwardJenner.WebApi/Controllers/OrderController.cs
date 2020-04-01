@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EdwardJenner.WebApi.Controllers
 {
-    public class UserController : BaseController
+    public class OrderController : BaseController
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ICacheService<User> _cacheService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICacheService<Order> _cacheService;
 
-        public UserController(IUserRepository userRepository, ICacheService<User> cacheService)
+        public OrderController(IOrderRepository orderRepository, ICacheService<Order> cacheService)
         {
-            _userRepository = userRepository;
+            _orderRepository = orderRepository;
             _cacheService = cacheService;
         }
 
@@ -23,22 +23,22 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            User result;
+            Order result;
 
             try
             {
-                result = await _cacheService.GetObjectCache($"ej.user.getbyid.{id}");
+                result = await _cacheService.GetObjectCache($"ej.order.getbyid.{id}");
 
                 if (result == null)
                 {
-                    result = await _userRepository.FindBy(x => x.Id == id);
-                    await _cacheService.SetObjectCache($"ej.user.getbyid.{id}", result);
+                    result = await _orderRepository.FindBy(x => x.Id == id);
+                    await _cacheService.SetObjectCache($"ej.order.getbyid.{id}", result);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                result = await _userRepository.FindBy(x => x.Id == id);
+                result = await _orderRepository.FindBy(x => x.Id == id);
             }
 
             return Ok(result);
@@ -48,22 +48,22 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("")]
         public async Task<IActionResult> List()
         {
-            IList<User> result;
+            IList<Order> result;
 
             try
             {
-                result = await _cacheService.GetObjectListCache("ej.user.listall");
+                result = await _cacheService.GetObjectListCache("ej.order.listall");
 
                 if (result == null)
                 {
-                    result = await _userRepository.ListBy(x => true);
-                    await _cacheService.SetObjectListCache("ej.user.listall", result);
+                    result = await _orderRepository.ListBy(x => true);
+                    await _cacheService.SetObjectListCache("ej.order.listall", result);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                result = await _userRepository.ListBy(x => true);
+                result = await _orderRepository.ListBy(x => true);
             }
 
             return Ok(result);
@@ -71,13 +71,13 @@ namespace EdwardJenner.WebApi.Controllers
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> Put([FromBody] User user)
+        public async Task<IActionResult> Put([FromBody] Order order)
         {
-            var update = await _userRepository.Update(user);
+            var update = await _orderRepository.Update(order);
 
             try
             {
-                await _cacheService.RemoveCacheByPattern("ej.user");
+                await _cacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
@@ -89,13 +89,13 @@ namespace EdwardJenner.WebApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<IActionResult> Post([FromBody] Order order)
         {
-            await _userRepository.Insert(user);
+            await _orderRepository.Insert(order);
 
             try
             {
-                await _cacheService.RemoveCacheByPattern("ej.user");
+                await _cacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
@@ -109,11 +109,11 @@ namespace EdwardJenner.WebApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            await _userRepository.Delete(x => x.Id == id);
+            await _orderRepository.Delete(x => x.Id == id);
 
             try
             {
-                await _cacheService.RemoveCacheByPattern("ej.user");
+                await _cacheService.RemoveCacheByPattern("ej.order");
             }
             catch (Exception ex)
             {
@@ -124,25 +124,25 @@ namespace EdwardJenner.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("username/{username}")]
-        public async Task<IActionResult> GetByUsername(string username)
+        [Route("near")]
+        public async Task<IActionResult> GetByNear(double longitude, double latitude, int distance)
         {
-            User result;
+            IList<Order> result;
 
             try
             {
-                result = await _cacheService.GetObjectCache($"ej.user.getbyusername.{username}");
+                result = await _cacheService.GetObjectListCache($"ej.order.getbynear.{longitude}.{latitude}.{distance}");
 
                 if (result == null)
                 {
-                    result = await _userRepository.FindBy(x => x.Username == username);
-                    await _cacheService.SetObjectCache($"ej.user.getbyusername.{username}", result);
+                    result = await _orderRepository.ListByNearAsync(longitude, latitude, distance);
+                    await _cacheService.SetObjectListCache($"ej.order.getbynear.{longitude}.{latitude}.{distance}", result);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                result = await _userRepository.FindBy(x => x.Username == username);
+                result = await _orderRepository.ListByNearAsync(longitude, latitude, distance);
             }
 
             return Ok(result);
