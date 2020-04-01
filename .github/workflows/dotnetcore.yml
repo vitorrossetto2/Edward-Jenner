@@ -56,5 +56,4 @@ jobs:
         username: ${{ secrets.HOST_USERNAME }}
         key: ${{ secrets.HOST_KEY }}
         port: ${{ secrets.HOST_PORT }}
-        script: |
-          restart_api.sh
+        script: restart_api.sh
