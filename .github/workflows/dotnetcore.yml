@@ -55,5 +55,4 @@ jobs:
         host: ${{ secrets.HOST_ADDRESS }}
         username: ${{ secrets.HOST_USERNAME }}
         password: ${{ secrets.HOST_PASSWORD }}
-        script: ls -l
-        
+        script: ./restart_api.sh
