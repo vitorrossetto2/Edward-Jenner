@@ -49,7 +49,7 @@ jobs:
         docker push registry.lennon.cloud/edwardjenner/api:${{ github.sha }}
         docker push registry.lennon.cloud/edwardjenner/api:latest
       working-directory: api
-    - name: executing remote ssh commands using password
+    - name: Deploy
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_ADDRESS }}
