@@ -39,10 +39,11 @@ jobs:
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
-        login-server: registry.lennon.io
+        login-server: registry.lennon.cloud
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
+    - name: Docker Build
+      run: |
         docker build . -t registry.lennon.cloud/edwardjenner/api:${{ github.sha }}
         docker tag registry.lennon.cloud/edwardjenner/api:${{ github.sha }} registry.lennon.cloud/edwardjenner/api:latest
         docker push registry.lennon.cloud/edwardjenner/api:${{ github.sha }}
