@@ -36,3 +36,16 @@ jobs:
       env:
         CI: true
       working-directory: front
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        login-server: registry.lennon.cloud
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - name: Docker Build
+      run: |
+        docker build . -t registry.lennon.cloud/edwardjenner/front:${{ github.sha }}
+        docker tag registry.lennon.cloud/edwardjenner/front:${{ github.sha }} registry.lennon.cloud/edwardjenner/front:latest
+        docker push registry.lennon.cloud/edwardjenner/front:${{ github.sha }}
+        docker push registry.lennon.cloud/edwardjenner/front:latest
+      working-directory: front
