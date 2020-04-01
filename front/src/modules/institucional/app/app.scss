@@ -1,6 +1,6 @@
 @import 'src/assets/styles/index';
-@import '../assets/fontello/css/fontello.css';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+@import '../../../assets/fontello/css/fontello.css';
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');*/
 
 * {
   padding: 0;
@@ -24,6 +24,43 @@
 
 ::selection {
   background: map_get($colors, 'red');
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
 }
 
 // TODO - Components

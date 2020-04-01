@@ -19,8 +19,8 @@ export default class Component {
   }
 
   template(tag = 'div', attrs = {}, childs) {
-    this.el = createElement(tag, attrs, childs);
-    getChildsElements(this.el, privateProperties, this);
-    return this.el;
+    const el = createElement(tag, attrs, childs);
+    getChildsElements(el, privateProperties, this);
+    return el;
   }
 }

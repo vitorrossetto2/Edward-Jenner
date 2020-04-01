@@ -1,10 +1,19 @@
 export default {
   spinner(_defaultSelector) {
-    return `
+    return `            
       <div class="${_defaultSelector}__content">
-        <h1>Carregando...</h1>
-        <span>Fazer um spinner descente e animado</span>
+        <svg class="${_defaultSelector}__content__circular" viewBox="25 25 50 50">
+          <circle
+            class="path"
+            cx="50"
+            cy="50"
+            r="20"
+            fill="none"
+            strokewidth="2"
+            strokemiterlimit="10">
+          </circle>
+        </svg>        
       </div>
-      `;
+    `;
   },
 };

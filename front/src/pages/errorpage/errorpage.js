@@ -1,25 +1,24 @@
-import './how.scss';
+import './errorpage.scss';
 import { Component } from '../../@core';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
 /**
- * @class How
- * @classdesc component/class How
+ * @class Errorpage
+ * @classdesc component/class Errorpage
  */
-
-export default class How extends Component {
+export default class ErrorPage extends Component {
   constructor() {
     super();
     privateProperties.set(this, {
-      _defaultSelector: 'c__how',
+      _defaultSelector: 'c__errorpage',
     });
   }
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 
-    this.el = this.template('div', { class: _defaultSelector }, template.how());
+    this.el = this.template('div', { class: _defaultSelector }, template.errorpage(_defaultSelector));
     return this.el;
   }
 }

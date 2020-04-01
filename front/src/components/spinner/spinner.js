@@ -1,5 +1,5 @@
 import './spinner.scss';
-import { Component, setPrivateProperties } from '../../@core';
+import { Component } from '../../@core';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -10,7 +10,7 @@ const privateProperties = new WeakMap();
 export default class Spinner extends Component {
   constructor() {
     super();
-    setPrivateProperties(privateProperties, this, {
+    privateProperties.set(this, {
       _defaultSelector: 'c__spinner',
     });
   }

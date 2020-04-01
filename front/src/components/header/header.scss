@@ -79,6 +79,7 @@
       span i {
         margin-right: map_get($spaces, 'small');
         font-size: 16px;
+        color: map_get($colors, 'red');
       }
     }
 

@@ -21,11 +21,6 @@ export default class Content extends Component {
     el.appendChild(page.render());
   }
 
-  data(route, data) {
-    route.dataCharger(data);
-    this.route(route);
-  }
-
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 

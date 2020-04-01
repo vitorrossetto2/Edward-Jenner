@@ -1,25 +1,24 @@
-import './what.scss';
+import './profile.scss';
 import { Component } from '../../@core';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
-
 /**
- * @class What
- * @classdesc component/class What
+ * @class Profile
+ * @classdesc component/class Profile
  */
-export default class What extends Component {
+export default class Profile extends Component {
   constructor() {
     super();
     privateProperties.set(this, {
-      _defaultSelector: 'c__what',
+      _defaultSelector: 'c__profile',
     });
   }
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
 
-    this.el = this.template('div', { class: _defaultSelector }, template.what());
+    this.el = this.template('div', { class: _defaultSelector }, template.profile(_defaultSelector));
     return this.el;
   }
 }

@@ -1,6 +1,8 @@
 import './login.scss';
+import { checkLogin, storageUser } from '../../utils';
 import { Component } from '../../@core';
 import { TUser } from '../../models';
+import { alert } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -17,20 +19,18 @@ export default class Login extends Component {
     });
   }
 
-  dataCharger(data) {
-    // data recebida da api ou de algum processamento
-    // esse valor vem do router.
-    console.log(data); // eslint-disable-line
-  }
-
   getChilds() {
     const { el } = this;
     const { _model } = privateProperties.get(this);
 
     const button = el.querySelector('button');
-    button?.addEventListener('click', () => {
-      console.log(_model); // eslint-disable-line
-      window.router.routeChange('map');
+    button?.addEventListener('click', async (evt) => {
+      evt.preventDefault();
+      const response = await checkLogin(_model);
+      if (response) {
+        storageUser(response);
+        window.location.href = 'portal.html';
+      } else alert.showMessage(1, 'Erro ao efetuar o login');
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((input) => {

@@ -1,16 +1,18 @@
 export default class TUser {
   constructor(user = {}) {
-    this.name = user.name;
-    this.email = user.email;
-    this.password = user.password;
-    this.avatar = user.avatar;
-    this.address = user.address;
+    this.logged = user.logged || false;
+    this.id = user.id || null;
+    this.name = user.name || null;
+    this.email = user.email || null;
+    this.password = user.password || null;
+    this.avatar = user.avatar || null;
+    this.address = user.address || null;
     this.typeUser = typeUser(user.type);
-    this.lat = user.lat;
-    this.lon = user.lon;
-    this.age = user.age;
-    this.description = user.description;
-    this.keepConnected = false;
+    this.lat = user.lat || null;
+    this.lon = user.lon || null;
+    this.age = user.age || null;
+    this.description = user.description || null;
+    this.keepConnected = false || null;
   }
 }
 

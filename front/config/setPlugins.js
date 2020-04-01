@@ -14,15 +14,23 @@ const minify = {
   removeRedundantAttributes: true,
 };
 
-module.exports = () => {
-  const html = new HtmlWebpackPlugin({
+const modules = [
+  {
     filename: './index.html',
-    template: './src/index.html',
-    chunks: ['main', 'vendors'],
-    async: 'vendors',
-    //favicon: './favicon.ico',
+    template: './src/modules/institucional/index.html',
+    chunks: ['main', 'main~portal', 'vendors'],
     minify,
-  });
+  },
+  {
+    filename: './portal.html',
+    template: './src/modules/portal/index.html',
+    chunks: ['portal', 'main~portal', 'vendors'],
+    minify,
+  },
+];
+
+module.exports = () => {
+  const htmls = modules.map((module) => new HtmlWebpackPlugin(module));
 
   const analytics = dot.definitions['process.env.ANALYTICS'].replace(/[\\"]/g, '');
   const scripts = new ScriptExtHtmlWebpackPlugin({
@@ -31,20 +39,18 @@ module.exports = () => {
     preload: 'vendors',
   });
 
-  return [
-    dot,
-    new MiniCssExtractPlugin({
-      filename: 'assets/css/[name].[hash:6].css',
-    }),
-    html,
-    new TextReplaceHtmlWebpackPlugin({
-      replacementArray: [
-        {
-          searchString: '@@ANALYTICS',
-          replace: analytics,
-        },
-      ],
-    }),
-    scripts,
-  ];
+  const miniCss = new MiniCssExtractPlugin({
+    filename: 'assets/css/[name].[hash:6].css',
+  });
+
+  const replaces = new TextReplaceHtmlWebpackPlugin({
+    replacementArray: [
+      {
+        searchString: '@@ANALYTICS',
+        replace: analytics,
+      },
+    ],
+  });
+
+  return [dot, miniCss, ...htmls, replaces, scripts];
 };

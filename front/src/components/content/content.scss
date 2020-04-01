@@ -1,5 +1,9 @@
 @import '../../assets/styles/index.scss';
 
+.logged .c__content {
+  padding: 0;
+}
+
 .c__content {
   padding: $header-space 0 0;
   position: relative;

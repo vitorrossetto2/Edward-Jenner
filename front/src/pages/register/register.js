@@ -1,4 +1,5 @@
 import './register.scss';
+import { registerUser, storageUser } from '../../utils';
 import { Component } from '../../@core';
 import { TUser } from '../../models';
 
@@ -23,9 +24,15 @@ export default class Register extends Component {
     const { el } = this;
 
     this.button = el.querySelector('button');
-    this.button.addEventListener('click', () => {
-      console.log(_model); // eslint-disable-line
-      window.router.routeChange('login');
+    this.button.addEventListener('click', async () => {
+      const response = await registerUser(_model);
+      if (response) {
+        _model.logged = true;
+        storageUser(_model);
+        window.router.routeChange('welcome');
+      } else {
+        console.log('HERE'); // eslint-disable-line
+      }
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((element) => {

@@ -1,22 +1,32 @@
 import './header.scss';
-import { Component } from '../../@core';
+import { Component, setPrivateProperties } from '../../@core';
 import { THeader } from '../../models';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
-const model = new THeader();
 /**
  * @class Header
  * @classdesc component/class Header
  */
 export default class Header extends Component {
   constructor() {
-    super();
+    super(new THeader());
 
     privateProperties.set(this, {
       _defaultSelector: 'c__header',
-      _items: model.items,
+      _items: this.state.items,
     });
+  }
+
+  setNavigation(logged = false) {
+    const { navigation } = this;
+    const { _defaultSelector } = privateProperties.get(this);
+    const ul = navigation.querySelector('ul');
+    ul.innerHTML = '';
+    ul.remove();
+    this.state.logged = logged;
+    setPrivateProperties(privateProperties, this, { _items: this.state.items });
+    navigation.appendChild(this.template('ul', {}, template.navigation(_defaultSelector, this.state.items)));
   }
 
   getChilds() {
@@ -59,7 +69,7 @@ export default class Header extends Component {
       {
         class: _defaultSelector,
       },
-      template.header(_defaultSelector, _items)
+      template.header(_defaultSelector, template.navigation(_defaultSelector, _items))
     );
     window.header = this;
     this.getChilds();

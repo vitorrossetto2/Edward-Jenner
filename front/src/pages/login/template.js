@@ -14,7 +14,13 @@ export default {
           </div>
           <div class="c__checkbox">
             <div class="c__checkbox__content">
-              <input class="c__checkbox__field" type="checkbox" name="keepConnected" value="true" id="keepConnected" tabindex="3"/>
+              <input 
+                class="c__checkbox__field" 
+                type="checkbox" 
+                name="keepConnected" 
+                value="true" 
+                id="keepConnected" 
+                tabindex="3"/>
               <label for="keepConnected" class="c__checkbox__content__checkmark"></label>
             </div>
             <label for="keepConnected">Manter conectado</label>

@@ -1,4 +1,6 @@
-import { STRINGS } from './constants';
-import { setDelay } from './helpers';
+import { STRINGS, URLS } from './constants';
+import { checkLogin, registerUser } from './requests';
+import { setDelay, storageUser } from './helpers';
+import { loadPolyfills } from './polyfills';
 
-export { STRINGS, setDelay };
+export { STRINGS, URLS, loadPolyfills, setDelay, storageUser, checkLogin, registerUser };
