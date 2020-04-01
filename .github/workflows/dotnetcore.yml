@@ -35,6 +35,7 @@ jobs:
       working-directory: api
     - name: Publish
       run: dotnet publish --configuration Release --no-restore --output out
+      working-directory: api
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
