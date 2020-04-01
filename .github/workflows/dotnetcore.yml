@@ -44,4 +44,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build . -t registry.lennon.cloud/edwardjenner/api:${{ github.sha }}
+        docker tag registry.lennon.cloud/edwardjenner/api:${{ github.sha }} registry.lennon.cloud/edwardjenner/api:latest
         docker push registry.lennon.cloud/edwardjenner/api:${{ github.sha }}
+        docker push registry.lennon.cloud/edwardjenner/api:latest
+      working-directory: api
