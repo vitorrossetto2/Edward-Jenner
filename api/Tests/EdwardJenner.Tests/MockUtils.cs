@@ -19,20 +19,20 @@ namespace EdwardJenner.Tests
     {
         public static MongoConnection MongoConnection = new MongoConnection
         {
-            ConnectionString = "mongodb://127.0.0.1:27017/edwardjenner",
-            Database = "edwardjenner"
+            ConnectionString = "null",
+            Database = "null"
         };
 
         public static RedisConnection RedisConnection = new RedisConnection
         {
-            Host = "127.0.0.1",
-            Port = 6379,
-            Seconds = 60000
+            Host = "null",
+            Port = 0,
+            Seconds = 0
         };
 
         public static GoogleSettings GoogleSettings = new GoogleSettings
         {
-            ApiKey = "AIzaSyA24yDHFfDuszVUomPTe8EiLTIdGjbESYc"
+            ApiKey = "null"
         };
 
         public static Mock<UserManager<TUser>> MockUserManager<TUser>(List<TUser> ls) where TUser : class

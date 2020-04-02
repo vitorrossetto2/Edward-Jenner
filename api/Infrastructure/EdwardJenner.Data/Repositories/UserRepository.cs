@@ -60,7 +60,7 @@ namespace EdwardJenner.Data.Repositories
         public new async Task<User> FindBy(Expression<Func<User, bool>> filter)
         {
             var user = await BaseCollection.Find(filter).FirstOrDefaultAsync();
-            foreach (var address in user.Adresses)
+            foreach (var address in user.Addresses)
             {
                 address.Latitude = address.Location.Coordinates.Latitude;
                 address.Longitude = address.Location.Coordinates.Longitude;
@@ -75,7 +75,7 @@ namespace EdwardJenner.Data.Repositories
             var users = await BaseCollection.Find(filter).ToListAsync();
             foreach (var user in users)
             {
-                foreach (var address in user.Adresses)
+                foreach (var address in user.Addresses)
                 {
                     address.Latitude = address.Location.Coordinates.Latitude;
                     address.Longitude = address.Location.Coordinates.Longitude;
@@ -98,7 +98,7 @@ namespace EdwardJenner.Data.Repositories
             user.ApplicationUserId = applicationUser.Id;
             user.UpdatedIn = DateTime.Now;
 
-            foreach (var address in user.Adresses)
+            foreach (var address in user.Addresses)
             {
                 address.Location = await GetGeopointsByAddress(address);
             }
@@ -110,7 +110,7 @@ namespace EdwardJenner.Data.Repositories
         {
             user.UpdatedIn = DateTime.Now;
 
-            foreach (var address in user.Adresses)
+            foreach (var address in user.Addresses)
             {
                 address.Location = await GetGeopointsByAddress(address);
             }

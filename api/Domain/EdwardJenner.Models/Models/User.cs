@@ -48,9 +48,9 @@ namespace EdwardJenner.Models.Models
         [BsonElement("cpf")]
         public string Cpf { get; set; }
 
-        [JsonProperty("adresses")]
-        [BsonElement("adresses")]
-        public IList<Address> Adresses { get; set; }
+        [JsonProperty("addresses")]
+        [BsonElement("addresses")]
+        public IList<Address> Addresses { get; set; }
 
         [JsonProperty("phones")]
         [BsonElement("phones")]
