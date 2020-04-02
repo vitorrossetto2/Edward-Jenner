@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a648f30f-6304-4334-92ca-d30734093f0a",
+		"_postman_id": "2ff1411e-2967-4be7-a79f-8ab1c4b4f9c2",
 		"name": "WebApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -592,7 +592,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Lennon Dias\",\r\n    \"username\": \"lennonalvesdias\",\r\n    \"email\": \"lennonalvesdias@gmail.com\",\r\n    \"password\": \"qLF!Ydzu6G82\",\r\n    \"avatar\": null,\r\n    \"cpf\": \"01234567890\",\r\n    \"addresses\": [\r\n        {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"number\": \"84\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"phones\": [\r\n        {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"applicationUserId\": \"dbe1046c-4157-4881-891a-84a0ba384321\",\r\n    \"type\": 1,\r\n    \"birthday\": \"1994-07-18T03:00:00Z\",\r\n    \"distance\": 2000\r\n}",
+							"raw": "{\r\n    \"name\": \"Lennon Dias\",\r\n    \"username\": \"lennonalvesdias\",\r\n    \"email\": \"lennonalvesdias@gmail.com\",\r\n    \"password\": \"qLF!Ydzu6G82\",\r\n    \"avatar\": null,\r\n    \"cpf\": \"01234567890\",\r\n    \"adresses\": [\r\n        {\r\n            \"country\": \"BR\",\r\n            \"state\": \"SP\",\r\n            \"city\": \"São Paulo\",\r\n            \"neighborhood\": \"Planalto Paulista\",\r\n            \"street\": \"Avenida Moema\",\r\n            \"number\": \"84\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"phones\": [\r\n        {\r\n            \"ddd\": \"997210201\",\r\n            \"number\": \"14\",\r\n            \"type\": 0\r\n        }\r\n    ],\r\n    \"applicationUserId\": \"dbe1046c-4157-4881-891a-84a0ba384321\",\r\n    \"type\": 1,\r\n    \"birthday\": \"1994-07-18T03:00:00Z\",\r\n    \"distance\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -679,6 +679,20 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "561e60ac-37d1-4f4c-8ad1-1908e2e8385e",
+			"key": "user",
+			"value": "edwardjenner",
+			"type": "string"
+		},
+		{
+			"id": "71b314d0-878d-4072-aca2-c8d3ab2d8000",
+			"key": "password",
+			"value": "FYUQ9PnWcvRZEoGVaux!",
+			"type": "string"
 		}
 	],
 	"protocolProfileBehavior": {}
