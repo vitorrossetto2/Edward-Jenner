@@ -28,10 +28,10 @@ jobs:
       with:
         files: 'api/Application/EdwardJenner.WebApi/appsettings*.json'
       env:
-        "__CorsSettings.Urls__": ${{ secrets.API_CORSSETTINGS_URLS }}
-        "__MongoConnection.User__": ${{ secrets.API_MONGOCONNECTION_USER }}
-        "__MongoConnection.Password__": ${{ secrets.API_MONGOCONNECTION_PASSWORD }}
-        "__GoogleSettings.ApiKey__": ${{ secrets.API_GOOGLESETTINGS_APIKEY }}
+        CorsSettings.Urls: ${{ secrets.API_CORSSETTINGS_URLS }}
+        MongoConnection.User: ${{ secrets.API_MONGOCONNECTION_USER }}
+        MongoConnection.Password: ${{ secrets.API_MONGOCONNECTION_PASSWORD }}
+        GoogleSettings.ApiKey: ${{ secrets.API_GOOGLESETTINGS_APIKEY }}
     - name: Install dependencies
       run: dotnet restore
       working-directory: api
