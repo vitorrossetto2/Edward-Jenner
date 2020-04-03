@@ -2,6 +2,7 @@ import './profile.scss';
 import { Address, Phones, UserProfile } from '../index';
 import { Component, setPrivateProperties } from '../../@core';
 import { isMobileDevice, storageUser } from '../../utils';
+import { spinner } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -56,7 +57,7 @@ export default class Profile extends Component {
 
   render() {
     const { _defaultSelector, _user } = privateProperties.get(this);
-
+    spinner.show(false);
     this.el = this.template('div', { class: _defaultSelector }, template.profile(_defaultSelector, _user));
     this.navigationEventHandlers();
     if (!isMobileDevice()) this.preparePages();
