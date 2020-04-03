@@ -1,6 +1,7 @@
 export default {
   navigation(_defaultSelector, _items) {
     return `
+      <div class="container">
         <nav class="${_defaultSelector}__nav">
           <ul>
             <li>
@@ -26,6 +27,7 @@ export default {
               .join('')}
           </ul>
         </nav>
-      `;
+      </div>
+    `;
   },
 };

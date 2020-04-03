@@ -1,26 +1,36 @@
 export default class TUser {
   constructor(user = {}) {
+    this.name = user.name || '';
+    this.username = user.username || '';
+    this.email = user.email || '';
+    this.password = user.password || '';
+    this.avatar = user.avatar || '';
+    this.addresses = user.adresses || [];
+    this.phones = user.phones || [];
+    this.applicationUserId = user.applicationUserId || '';
+    this.type = user.type || 0;
+    this.birthday = user.birthday || '';
+    this.distance = user.distance || '';
     this.logged = user.logged || false;
-    this.id = user.id || null;
-    this.name = user.name || null;
-    this.email = user.email || null;
-    this.password = user.password || null;
-    this.avatar = user.avatar || null;
-    this.address = user.address || null;
-    this.typeUser = typeUser(user.type);
-    this.lat = user.lat || null;
-    this.lon = user.lon || null;
-    this.age = user.age || null;
-    this.description = user.description || null;
-    this.keepConnected = false || null;
+    this.keepConnected = false;
+    this.description = user.description || '';
+  }
+
+  get type() {
+    return typeUser(this._type);
+  }
+
+  set type(type) {
+    this._type = type;
+    return;
   }
 }
 
 const typeUser = (type) => {
   const types = {
-    risc: 0,
-    help: 1,
-    business: 2,
+    0: 'Cliente',
+    1: 'Ajudante',
+    2: 'Vendedor',
   };
 
   return types[type];

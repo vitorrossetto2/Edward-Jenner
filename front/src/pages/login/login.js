@@ -2,7 +2,7 @@ import './login.scss';
 import { checkLogin, storageUser } from '../../utils';
 import { Component } from '../../@core';
 import { TUser } from '../../models';
-import { alert } from '../../components';
+//import { alert } from '../../components';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -27,10 +27,29 @@ export default class Login extends Component {
     button?.addEventListener('click', async (evt) => {
       evt.preventDefault();
       const response = await checkLogin(_model);
-      if (response) {
-        storageUser(response);
-        window.location.href = 'portal.html';
-      } else alert.showMessage(1, 'Erro ao efetuar o login');
+      console.log(response); // eslint-disable-line
+      storageUser(
+        new TUser({
+          logged: false,
+          id: 4,
+          name: 'Luis Paulo Morais Cardoso',
+          username: 'luispmorais',
+          email: 'luis.cardoso@xpi.com.br',
+          password: '123456',
+          avatar: 'https://www.diretoriodigital.com.br/wp-content/uploads/2013/05/Team-Member-3.jpg',
+          birthday: '25/08/1993',
+          address: null,
+          typeUser: '1',
+          description: null,
+          keepConnected: null,
+        })
+      );
+      window.location.href = 'portal.html';
+      // TODO - descomentar para fazer validação
+      // if (response && response.length > 0) {
+      //   storageUser(new TUser(response[0]));
+      //   window.location.href = 'portal.html';
+      // } else alert.showMessage(1, 'Erro ao efetuar o login');
     });
 
     Array.from(el.querySelectorAll('input'))?.forEach((input) => {

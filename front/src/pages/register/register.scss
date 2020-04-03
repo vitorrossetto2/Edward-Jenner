@@ -42,12 +42,16 @@
 
     &__terms {
       max-height: 300px;
-      overflow-y: hidden;
       padding: map_get($spaces, 'normal');
-      background: map_get($colors, 'gray-1');
+      background: map_get($colors, 'white');
+      overflow-y: scroll;
 
-      &:hover {
-        overflow-y: scroll;
+      @include mq('desktop') {
+        overflow-y: hidden;
+
+        &:hover {
+          overflow-y: scroll;
+        }
       }
     }
 
