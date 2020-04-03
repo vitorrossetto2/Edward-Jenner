@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-
+    name: build nodejs (front)
     runs-on: ubuntu-latest
 
     strategy:

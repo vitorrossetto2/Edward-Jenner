@@ -67,7 +67,7 @@ namespace EdwardJenner.Tests.Repositories
                 Password = "abc123",
                 Username = "lennonalvesdias",
                 Cpf = "01234567890",
-                Adresses = new List<Address>
+                Addresses = new List<Address>
                 {
                     new Address
                     {

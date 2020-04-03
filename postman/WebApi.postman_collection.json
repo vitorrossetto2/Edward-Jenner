@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a648f30f-6304-4334-92ca-d30734093f0a",
+		"_postman_id": "2ff1411e-2967-4be7-a79f-8ab1c4b4f9c2",
 		"name": "WebApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -679,6 +679,20 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "561e60ac-37d1-4f4c-8ad1-1908e2e8385e",
+			"key": "user",
+			"value": "edwardjenner",
+			"type": "string"
+		},
+		{
+			"id": "71b314d0-878d-4072-aca2-c8d3ab2d8000",
+			"key": "password",
+			"value": "FYUQ9PnWcvRZEoGVaux!",
+			"type": "string"
 		}
 	],
 	"protocolProfileBehavior": {}
