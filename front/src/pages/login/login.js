@@ -36,7 +36,8 @@ export default class Login extends Component {
           username: 'luispmorais',
           email: 'luis.cardoso@xpi.com.br',
           password: '123456',
-          avatar: 'https://www.diretoriodigital.com.br/wp-content/uploads/2013/05/Team-Member-3.jpg',
+          avatar:
+            'https://avatars2.githubusercontent.com/u/16003741?s=460&u=c236f8e7162185760ebd018a2249486defcef461&v=4',
           birthday: '25/08/1993',
           address: null,
           typeUser: '1',

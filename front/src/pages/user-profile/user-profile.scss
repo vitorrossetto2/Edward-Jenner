@@ -1,7 +1,10 @@
 @import 'src/assets/styles/index.scss';
 
 .c__user-profile {
+  width: 100%;
+  min-height: 100vh;
   padding: 60px map_get($spaces, 'normal');
+  background: map_get($colors, 'gray');
 
   .container {
     @include mq('desktop') {
