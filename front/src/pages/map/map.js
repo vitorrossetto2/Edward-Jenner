@@ -1,5 +1,6 @@
+/* eslint-disable */
 import './map.scss';
-import { Button } from '../../components';
+import { Button, alert, spinner } from '../../components';
 import { Component } from '../../@core';
 import { TButton } from '../../models';
 import template from './template.js';
@@ -19,7 +20,7 @@ export default class Map extends Component {
 
   render() {
     const { _defaultSelector } = privateProperties.get(this);
-
+    spinner.show(true);
     const btnReadRequest = new Button(new TButton({ label: 'Ver Pedido' }));
 
     const nearbyMock = {
@@ -39,6 +40,7 @@ export default class Map extends Component {
       },
     };
 
+    // checar se já existe instancia
     const markerclustererplus = document.createElement('script');
     markerclustererplus.src = 'https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js';
     markerclustererplus.async = true;
@@ -48,6 +50,8 @@ export default class Map extends Component {
     googleapismaps.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA24yDHFfDuszVUomPTe8EiLTIdGjbESYc';
     googleapismaps.async = true;
     googleapismaps.onload = () => {
+      console.log('HER');
+      spinner.show(false);
       // locationClient = {lat: nearbyMock.client.location.latitude, lng: nearbyMock.client.location.longitude};
       const locationLennon = { lat: -23.6036901, lng: -46.6620627 };
       const locationIbirapuera = { lat: -23.6104878, lng: -46.6688605 };
@@ -70,6 +74,10 @@ export default class Map extends Component {
         return marker;
       });
       new window.MarkerClusterer(map, markers);
+    };
+    googleapismaps.onerror = () => {
+      spinner.show(false);
+      alert.showMessage(1, 'Erro ao carregar o mapa');
     };
     document.querySelector('body').appendChild(googleapismaps);
 

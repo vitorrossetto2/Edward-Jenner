@@ -1,0 +1,16 @@
+@import 'src/assets/styles/index.scss';
+
+.c__user-profile {
+  padding: 60px map_get($spaces, 'normal');
+
+  .container {
+    @include mq('desktop') {
+      width: 100%;
+    }
+  }
+
+  @include mq('tablet') {
+    padding: map_get($spaces, 'normal');
+    background: map_get($colors, 'white');
+  }
+}

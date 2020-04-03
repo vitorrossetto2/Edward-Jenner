@@ -1,6 +1,6 @@
 import './app.scss';
 import { Component, Router, setPrivateProperties } from '../../../@core';
-import { STRINGS, loadPolyfills, setDelay } from '../../../utils';
+import { STRINGS, loadPolyfills } from '../../../utils';
 import { alert, content, navigation, spinner } from '../../../components';
 import { routes } from './routing';
 
@@ -32,9 +32,6 @@ export default class App extends Component {
     body.appendChild(this.el);
 
     spinner.show(true);
-    setDelay(1000).then(() => {
-      spinner.show(false);
-    });
     window.spinner = spinner;
     // render spinner, after onload ok call render();
     this.render();
