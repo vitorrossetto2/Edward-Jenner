@@ -3,13 +3,13 @@
 .c__input {
   position: relative;
   width: 100%;
-  margin: map_get($spaces, 'normal') 0;
+  margin: map_get($spaces, 'large') 0;
 
   &__field {
     position: relative;
     width: 100%;
     z-index: 1;
-    height: map_get($spaces, 'x-large');
+    height: map_get($spaces, 'large');
     background: transparent;
     box-shadow: 0 0 0 transparent;
     border: 0px;
@@ -31,7 +31,7 @@
 
   &__label {
     position: absolute;
-    top: map_get($spaces, 'normal');
+    top: map_get($spaces, 'small');
     left: 0;
     font-weight: 500;
     transition: 0.5s;
@@ -39,7 +39,12 @@
 
   &__field:focus + &__label,
   &__field:valid + &__label {
-    top: -10px;
+    top: -16px;
     font-size: map_get($textSize, 'small');
+  }
+
+  textarea {
+    height: 100px;
+    border: 1px solid map_get($colors, 'black');
   }
 }

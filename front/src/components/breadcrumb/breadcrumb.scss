@@ -1,0 +1,29 @@
+@import 'src/assets/styles/index.scss';
+
+.c__breadcrumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: map_get($colors, 'white');
+  padding: map_get($spaces, 'normal');
+  z-index: 199;
+
+  &__content {
+    display: flex;
+
+    button {
+      background: transparent;
+      border: 0;
+    }
+
+    &__actual {
+      margin-left: map_get($spaces, 'normal');
+
+      i {
+        font-size: map_get($textSize, 'medium');
+        color: map_get($colors, 'red');
+      }
+    }
+  }
+}

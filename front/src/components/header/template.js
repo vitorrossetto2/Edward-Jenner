@@ -22,7 +22,7 @@ export default {
           .map((item) => {
             return `
             <li>
-              <a href="#${item.page}">
+              <a href="#${item.route}">
                 <span>
                   <i class="${item.icon}"></i>
                 </span>
