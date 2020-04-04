@@ -1,4 +1,5 @@
-import { ErrorPage, Notfound } from '../../pages';
+import { Notfound } from '../../pages';
+import { memoizeDOMManipulation } from './cacheItensNavigation';
 import { setPrivateProperties } from '../_shared';
 
 const privateProperties = new WeakMap();
@@ -31,7 +32,8 @@ export default class Router {
   async routeChange(route = '', pop = false) {
     const { _content, _routes } = privateProperties.get(this);
     const component = _routes.find((x) => x.path === route);
-    let page = new Notfound();
+    let page;
+    this.controlActiveLinks(route);
 
     if (!component) return _content.route(new Notfound());
 
@@ -46,7 +48,7 @@ export default class Router {
     }
 
     if (!page) {
-      _content.route(new ErrorPage());
+      _content.route(new Notfound());
       return;
     }
     _content.route(page);
@@ -78,6 +80,16 @@ export default class Router {
       console.log(err); // eslint-disable-line
       return false;
     }
+  }
+
+  controlActiveLinks(route = '') {
+    const elements = memoizeDOMManipulation(document, 'querySelectorAll', '[data-router-link]');
+    elements.forEach((item) => {
+      const href = item.getAttribute('href');
+      if (!href) return;
+      if (!href.includes(route)) item.classList.remove('router-active');
+      if (href.includes(route)) item.classList.add('router-active');
+    });
   }
 
   controlHistoryPushState(route, pop) {

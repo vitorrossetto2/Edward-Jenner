@@ -32,12 +32,19 @@
       display: block;
       font-size: map_get($textSize, 'large');
       cursor: pointer;
-      padding: map_get($spaces, 'normal');
+      padding: map_get($spaces, 'small') map_get($spaces, 'normal') 0 map_get($spaces, 'normal');
       color: map_get($colors, 'red');
     }
 
     &__names {
-      display: none;
+      color: map_get($colors, 'red');
+      font-weight: 600;
+      font-size: map_get($textSize, 'small');
+    }
+
+    .router-active &__icon,
+    .router-active &__names {
+      color: map_get($colors, 'black');
     }
   }
 

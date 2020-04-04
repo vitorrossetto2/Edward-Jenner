@@ -1,11 +1,13 @@
 export default class TAddress {
   constructor(address = {}) {
-    this.country = address.country;
-    this.state = address.state;
-    this.city = address.city;
-    this.neighborhood = address.neighborhood;
-    this.street = address.street;
-    this.number = address.number;
+    this.cep = address.cep || '';
+    this.country = address.country || '';
+    this.state = address.state || '';
+    this.city = address.city || '';
+    this.neighborhood = address.neighborhood || '';
+    this.street = address.street || '';
+    this.number = address.number || '';
+    this.complement = address.complement || '';
     this.type = address.type;
   }
 

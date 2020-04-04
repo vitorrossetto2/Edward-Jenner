@@ -1,7 +1,8 @@
 import './phones.scss';
-import { isMobileDevice, storageUser } from '../../utils';
+import { breadcrumb, spinner } from '../../components';
 import { Component } from '../../@core';
-import { breadcrumb } from '../../components';
+import { TPhone } from '../../models';
+import { isMobileDevice } from '../../utils';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -16,7 +17,7 @@ export default class Phones extends Component {
       _defaultSelector: 'c__phones',
       _defaultName: 'Telefones',
       _defaultIcon: 'icon-phone-circled',
-      _user: storageUser(),
+      _phone: new TPhone(),
     });
   }
 
@@ -26,11 +27,31 @@ export default class Phones extends Component {
     el.appendChild(breadcrumb.render({ name: _defaultName, icon: _defaultIcon }));
   }
 
-  render() {
-    const { _defaultSelector, _user } = privateProperties.get(this);
+  getChilds() {
+    const { _phone } = privateProperties.get(this);
+    const { el } = this;
+    const button = el.querySelector('button');
 
-    this.el = this.template('div', { class: _defaultSelector }, template.phones(_defaultSelector, _user));
+    Array.from(el.querySelectorAll('.c__input__field'))?.forEach((item) => {
+      item.addEventListener('change', (evt) => {
+        const property = evt.target.getAttribute('name');
+        _phone[property] = evt.target.value;
+        if (_phone.ddd && _phone.number) {
+          button.removeAttribute('disabled');
+        } else {
+          button.setAttribute('disabled', true);
+        }
+      });
+    });
+  }
+
+  render() {
+    const { _defaultSelector, _phone } = privateProperties.get(this);
+
+    this.el = this.template('div', { class: _defaultSelector }, template.phones(_defaultSelector, _phone));
     if (isMobileDevice()) this.buildBreadcrumb();
+    this.getChilds();
+    spinner.show(false);
     return this.el;
   }
 }

@@ -8,14 +8,15 @@ export default {
               <a>
                 <span class="${_defaultSelector}__nav__icon">
                   <i class="icon-menu-3"></i>
-                </span>                
+                </span>    
+                <span class="${_defaultSelector}__nav__names">Menu</span>            
               </a>
             </li>
             ${_items
               .map((item) => {
                 return `
                 <li>
-                  <a href="#${item.route}">
+                  <a href="#${item.route}" data-router-link>
                     <span class="${_defaultSelector}__nav__icon">
                       <i class="${item.icon}"></i>
                     </span>

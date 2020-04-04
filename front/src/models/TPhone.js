@@ -1,7 +1,7 @@
 export default class TPhone {
   constructor(phone = {}) {
-    this.ddd = phone.ddd || null;
-    this.number = phone.number || null;
+    this.ddd = phone.ddd || '';
+    this.number = phone.number || '';
     this.type = phone.type;
   }
 
@@ -22,5 +22,5 @@ const phoneTypes = (type) => {
     default: 'Casa',
   };
 
-  return types[type] || type['default'];
+  return types[type] || types['default'];
 };
