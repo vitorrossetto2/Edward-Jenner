@@ -30,7 +30,7 @@ export default {
             type="mail" 
             name="email" 
             required 
-            pattern=".*\\S.*" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" 
             tabindex="3" 
             value="${_user.email}"/>
           <label class="c__input__label">E-mail:</label>
@@ -53,6 +53,7 @@ export default {
             tabindex="5"></textarea>
           <label class="c__input__label">Biografia:</label>
         </div>
+        <button class="c__button c__button--reverse" type="button" disabled tabindex="6">Salvar</button>
       </div>
       `;
   },

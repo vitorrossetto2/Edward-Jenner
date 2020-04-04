@@ -1,7 +1,8 @@
 import './address.scss';
-import { isMobileDevice, storageUser } from '../../utils';
-import { Component } from '../../@core';
-import { breadcrumb } from '../../components';
+import { Component, setPrivateProperties } from '../../@core';
+import { breadcrumb, spinner } from '../../components';
+import { getAddressWithCEP, isMobileDevice } from '../../utils';
+import { TAddress } from '../../models';
 import template from './template.js';
 
 const privateProperties = new WeakMap();
@@ -16,7 +17,7 @@ export default class Address extends Component {
       _defaultSelector: 'c__address',
       _defaultName: 'Endereços',
       _defaultIcon: 'icon-location-circled',
-      _user: storageUser(),
+      _address: new TAddress(),
     });
   }
 
@@ -26,11 +27,68 @@ export default class Address extends Component {
     el.appendChild(breadcrumb.render({ name: _defaultName, icon: _defaultIcon }));
   }
 
-  render() {
-    const { _defaultSelector, _user } = privateProperties.get(this);
+  getChilds() {
+    const { el } = this;
+    const { _address } = privateProperties.get(this);
+    const fieldCEP = el.querySelector('[name="cep"]');
+    const _button = el.querySelector('button');
+    setPrivateProperties(privateProperties, this, { _button });
 
-    this.el = this.template('div', { class: _defaultSelector }, template.address(_defaultSelector, _user));
+    Array.from(el.querySelectorAll('.c__input__field')).forEach((item) => {
+      item.addEventListener('change', (evt) => {
+        _address[evt.target.getAttribute('name')] = evt.target.value;
+        setPrivateProperties(privateProperties, this, { _address });
+        this.checkModelToSend();
+      });
+    });
+    fieldCEP.addEventListener('change', async (evt) => {
+      evt.preventDefault();
+      this.getCEP(evt.target);
+    });
+  }
+
+  checkModelToSend() {
+    const { _button } = privateProperties.get(this);
+    const { street, number, neighborhood, state, country, type } = privateProperties.get(this)['_address'];
+
+    if (street && number && neighborhood && state && country && type) {
+      _button.removeAttribute('disabled');
+    } else {
+      _button.setAttribute('disabled', true);
+    }
+  }
+
+  async getCEP(element) {
+    const { el } = this;
+    const { _address } = privateProperties.get(this);
+    const cep = element.value.replace(/\D/g, '');
+    if (cep && /^[0-9]{8}$/.test(cep)) {
+      const response = await getAddressWithCEP(cep);
+      if (response) {
+        const address = {
+          cep,
+          street: response.logradouro,
+          neighborhood: response.bairro,
+          city: response.localidade,
+          state: response.uf,
+        };
+        Object.assign(_address, address);
+        setPrivateProperties(privateProperties, this, { _address });
+        for (const [k, v] of Object.entries(_address)) {
+          const input = el.querySelector(`input[name="${k}"]`);
+          if (input) input.value = v;
+        }
+      }
+    }
+  }
+
+  render() {
+    const { _defaultSelector, _address } = privateProperties.get(this);
+
+    this.el = this.template('div', { class: _defaultSelector }, template.address(_defaultSelector, _address));
     if (isMobileDevice()) this.buildBreadcrumb();
+    spinner.show(false);
+    this.getChilds();
     return this.el;
   }
 }

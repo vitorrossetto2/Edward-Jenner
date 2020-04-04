@@ -26,4 +26,14 @@ const registerUser = async (user) => {
   }
 };
 
-export { checkLogin, registerUser };
+const getAddressWithCEP = async (cep = '') => {
+  try {
+    const url = `${URLS.API_CEP}`.replace('##replaceCEP##', cep);
+    return await get(url, headers, true);
+  } catch (err) {
+    console.log(err); // eslint-disable-line
+    return false;
+  }
+};
+
+export { checkLogin, registerUser, getAddressWithCEP };

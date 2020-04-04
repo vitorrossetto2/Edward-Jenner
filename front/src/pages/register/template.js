@@ -5,7 +5,7 @@ export default {
         <div class="${_defaultSelector}__content">
           <form id="formRegister">
             <div class="c__input">
-              <input class="c__input__field" type="text" name="name" required pattern=".*\\S.*" tabindex="1"/>
+              <input class="c__input__field" type="text" name="name" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" tabindex="1"/>
               <label class="c__input__label">Nome completo:</label>
             </div>
             <div class="c__input">

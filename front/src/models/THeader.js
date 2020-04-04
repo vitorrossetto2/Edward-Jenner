@@ -25,17 +25,17 @@ export default class THeader {
 const logged = [
   {
     name: 'Perfil',
-    icon: 'icon-user-outline',
+    icon: 'icon-user-circle-o',
     route: 'profile',
   },
   {
     name: 'Listas',
-    icon: 'icon-basket-3',
+    icon: 'icon-docs',
     route: 'list',
   },
   {
     name: 'Mapa',
-    icon: 'icon-map-o',
+    icon: 'icon-location-7',
     route: 'map',
   },
 ];
