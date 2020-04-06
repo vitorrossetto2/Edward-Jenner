@@ -92,7 +92,8 @@ namespace EdwardJenner.WebApi
             {
                 options.AddPolicy(Configuration.GetSection("CorsSettings:PolicyName").Value, builder =>
                 {
-                    builder.WithOrigins(Configuration.GetSection("CorsSettings:Urls").Value.Split(';')).AllowAnyHeader();
+                    //builder.WithOrigins(Configuration.GetSection("CorsSettings:Urls").Value.Split(';')).AllowAnyHeader();
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
             });
         }
